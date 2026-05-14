@@ -88,7 +88,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .cv{transition:transform .3s;color:rgba(255,255,255,.3);font-size:16px;}
 .cc.open .cv{transform:rotate(180deg);}
 .cb{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
-.cc.open .cb{max-height:2000px;}
+.cc.open .cb{max-height:8000px;}
 .cs{padding:20px 22px;border-top:1px solid rgba(255,255,255,.05);}
 .csl{display:flex;align-items:center;gap:7px;font-size:10px;font-family:var(--mn);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
 .ctx{font-size:13px;line-height:1.8;color:rgba(255,255,255,.68);}
@@ -671,11 +671,8 @@ let playerName='';
 function enroll(){
   const inp=document.getElementById('nameIn');
   const n=inp.value.trim();
-  if(!n){inp.style.outline='2px solid #FF4C00';inp.focus();return;,
-       alt:[
-        'ARCHITECT\'S BRIEF ANALOGY: An architect who builds without a complete client brief wastes materials, time, and money producing something the client did not want. Every ambiguity in the brief becomes a dispute during construction. Steps 1-3 of the agent builder are the architect\'s brief: complete the brief before picking up any tools.',
-        'SURGICAL PLANNING ANALOGY: A surgical team does not begin an operation without a complete pre-operative plan: the procedure, the patient\'s condition, the instruments required, the contingencies for complications. Improvising in the operating theatre costs lives. Improvising in AI deployment costs credibility, time, and sometimes data. Plan completely before you build.'
-       ]}
+  if(!n){inp.style.outline='2px solid #FF4C00';inp.focus();return;}
+
   inp.style.outline='none';
   playerName=n;
   saveScore();renderLB();
@@ -710,11 +707,7 @@ function markUnderstood(conceptKey) {
   if(understood[conceptKey]) {
     btn.classList.add('done');
     btn.querySelector('.gotit-label').textContent = 'Got it';
-  ,
-       alt:[
-        'TOOLBOX ANALOGY: A skilled tradesperson carries exactly the tools their job requires. A plumber does not carry a chainsaw. The right tool for the job, in the right hands, with appropriate safety training for each tool. AI agents should be designed with the same discipline: the minimum set of tools required to accomplish the specified task, with appropriate access controls and usage logging for each.',
-        'LIBRARY ACCESS ANALOGY: A first-year student has access to the general library. A PhD researcher has access to restricted archives and primary sources. Each level of access is proportionate to the legitimate need. AI agent tool access should follow the same graduated authority model: start with the minimum access required, add capabilities as the reliability record justifies them.'
-       ]} else {
+  } else {
     btn.classList.remove('done');
     btn.querySelector('.gotit-label').textContent = 'Mark as understood';
   }
@@ -750,11 +743,7 @@ function buildPanel(pd){
     <div class="progress-bar-wrap">
       <span style="font-size:11px;font-family:var(--mn);color:rgba(255,255,255,.4);letter-spacing:2px;white-space:nowrap">PHASE PROGRESS</span>
       <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:0%"></div></div>
-      <span class="pb-count" id="pb-count">0/${totalConcepts,
-       alt:[
-        'PRODUCT LAUNCH ANALOGY: A consumer product company does not launch a new product without consumer testing, quality control, and a clear performance measurement plan. They test with a representative sample, measure the key metrics, refine based on feedback, and launch with a monitoring plan. AI agent deployment follows the same discipline.',
-        'CLINICAL TRIAL ANALOGY: A new medical treatment goes through phases: safety testing (does it cause harm?), efficacy testing (does it work?), comparative testing (does it outperform existing treatments?), and long-term monitoring (does efficacy hold up over time?). AI agent deployment should follow the same phased validation before production launch.'
-       ]} concepts understood</span>
+      <span class="pb-count" id="pb-count">0/${totalConcepts} concepts understood</span>
     </div>
     <div class="ywc"><div class="ywc-title">YOU WILL COVER IN THIS PHASE</div><div class="ywc-grid">${pd.cover.map(c=>`<div class="ywc-item"><div class="ywc-dot" style="background:${pd.color}"></div><span>${c}</span></div>`).join('')}</div></div>`;
   const tabs=document.getElementById('ltabs');
@@ -788,7 +777,7 @@ function buildPanel(pd){
           <div><div class="ct" style="${isDone?'opacity:.5':''}">${con.t}</div><div class="cs2">${con.sub}</div></div>
           <div style="display:flex;align-items:center;gap:10px;">
             ${isDone?'<span style="font-size:10px;font-family:var(--mn);color:#34d399;letter-spacing:1px;padding:3px 10px;background:rgba(16,185,129,.1);border-radius:4px;">UNDERSTOOD</span>':''}
-            <span class="cv">v</span>
+            <span class="cv">&#9660;</span>
           </div>
         </div>
         <div class="cb">
