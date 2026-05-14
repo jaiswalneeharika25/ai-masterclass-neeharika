@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The AI Ops Masterclass</title>
+
+<style>
+:root{--o:#FF4C00;--oh:#e64400;--dk:#0d0d0d;--d2:#161616;--d3:#1e1e1e;--wh:#ffffff;--gr:#8a8a8a;--bd:rgba(255,255,255,0.07);--fm:'Calibri','Calibri',Calibri,sans-serif;--mn:'Courier New',Courier,monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:var(--fm);background:var(--dk);color:var(--wh);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,13,13,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;letter-spacing:-.5px;}
+.nav-flame{width:30px;height:30px;background:var(--o);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{padding:9px 22px;background:var(--o);color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--fm);}
+.nav-cta:hover{background:var(--oh);}
+.xpw{position:fixed;top:60px;left:0;right:0;z-index:199;background:rgba(13,13,13,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,76,0,0.15);padding:7px 40px;display:flex;align-items:center;gap:16px;}
+.xpl{font-size:11px;color:var(--o);font-family:var(--mn);letter-spacing:2px;white-space:nowrap;}
+.xpt{flex:1;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.xpf{height:100%;background:var(--o);border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1);width:0%;}
+.xpc{font-size:11px;color:var(--o);font-family:var(--mn);white-space:nowrap;}
+.xpr{font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--mn);white-space:nowrap;}
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:120px 80px 60px;}
+.hbg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(255,76,0,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 20% 30%,rgba(255,76,0,.03) 0%,transparent 60%),linear-gradient(160deg,#1a1108 0%,#0a0a0a 40%,#0d0d0d 100%);}
+
+100%{transform:translateY(60px)}}
+
+
+50%{opacity:.6;transform:scale(1.3)}}
+.hh1{font-size:clamp(40px,5.5vw,78px);font-weight:900;line-height:.96;letter-spacing:-2.5px;position:relative;z-index:1;animation:fu .7s .1s ease both;}
+.hh1 .or{color:var(--o);}
+.hsub{margin-top:20px;max-width:540px;font-size:16px;line-height:1.65;color:rgba(255,255,255,.6);font-weight:400;position:relative;z-index:1;animation:fu .7s .2s ease both;}
+.hform{margin-top:36px;display:flex;gap:0;max-width:440px;position:relative;z-index:1;animation:fu .7s .3s ease both;}
+.hinput{flex:1;padding:14px 22px;background:#fff;border:none;outline:none;border-radius:100px 0 0 100px;font-size:15px;font-family:var(--fm);color:#111;}
+.hinput::placeholder{color:#999;}
+.hbtn{padding:15px 26px;background:var(--o);color:#fff;border:none;border-radius:0 100px 100px 0;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:var(--fm);}
+.hbtn:hover{background:var(--oh);}
+.hlink{margin-top:14px;font-size:13px;color:rgba(255,255,255,.4);position:relative;z-index:1;animation:fu .7s .4s ease both;}
+.hlink a{color:rgba(255,255,255,.6);text-decoration:none;}
+
+
+.snum span{color:var(--o);}
+
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* PHASES SECTION */
+.sec{padding:80px;}
+.slabel{font-size:11px;letter-spacing:4px;color:var(--o);font-family:var(--mn);text-transform:uppercase;margin-bottom:14px;}
+.stitle{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:48px;}
+.pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;}
+.pc{background:var(--d2);padding:28px 20px;cursor:pointer;transition:background .2s;position:relative;overflow:hidden;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.pc:hover::before,.pc.active::before{transform:scaleX(1);}
+.pc:hover,.pc.active{background:#1a1a1a;}
+.pnum{font-size:10px;font-family:var(--mn);letter-spacing:3px;color:var(--gr);margin-bottom:10px;}
+.pico{font-size:24px;margin-bottom:10px;}
+.pname{font-size:14px;font-weight:700;margin-bottom:4px;line-height:1.2;}
+.psub{font-size:11px;color:rgba(255,255,255,.38);line-height:1.45;margin-bottom:12px;}
+.ptool{font-size:10px;font-family:var(--mn);padding:2px 7px;background:rgba(255,255,255,.04);border-radius:4px;color:rgba(255,255,255,.45);display:inline-block;margin:2px 2px 0 0;}
+.pxp{margin-top:14px;font-size:11px;font-family:var(--mn);color:var(--pc);}
+.plck{position:absolute;top:10px;right:12px;font-size:9px;font-family:var(--mn);letter-spacing:1px;opacity:.35;}
+.pc.done .plck{opacity:1;}
+/* LESSON PANEL */
+.lp{background:var(--d2);border-top:1px solid rgba(255,255,255,.04);max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
+.lp.open{max-height:9999px;}
+.li{padding:40px 48px;}
+/* You Will Cover */
+.ywc{margin-bottom:32px;padding:24px 28px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;}
+.ywc-title{font-size:10px;font-family:var(--mn);letter-spacing:3px;color:var(--o);margin-bottom:16px;}
+.ywc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ywc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:rgba(255,255,255,.02);border-radius:8px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;}
+.ywc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+/* tabs */
+.ltabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:32px;}
+.ltab{padding:11px 22px;cursor:pointer;font-size:12px;font-weight:500;color:rgba(255,255,255,.35);border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--fm);}
+.ltab.active{color:#fff;border-bottom-color:var(--ac);}
+.ltab:hover{color:rgba(255,255,255,.65);}
+.lcont{display:none;}
+.lcont.active{display:block;}
+/* concept cards */
+.cc{border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+.ch{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.02);transition:background .2s;cursor:pointer;}
+.ch:hover{background:rgba(255,255,255,.04);}
+.ct{font-size:14px;font-weight:600;}
+.cs2{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+.cv{transition:transform .3s;color:rgba(255,255,255,.3);font-size:16px;}
+.cc.open .cv{transform:rotate(180deg);}
+.cb{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.cc.open .cb{max-height:2000px;}
+.cs{padding:20px 22px;border-top:1px solid rgba(255,255,255,.05);}
+.csl{display:flex;align-items:center;gap:7px;font-size:10px;font-family:var(--mn);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.ctx{font-size:13px;line-height:1.8;color:rgba(255,255,255,.68);}
+.ctx.mono{font-family:var(--mn);font-size:12px;}
+/* MBA pill */
+.mba-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:100px;font-size:10px;font-family:var(--mn);color:#fbbf24;letter-spacing:1px;margin-bottom:10px;}
+/* BOSS */
+.bs{padding:72px 80px;background:linear-gradient(135deg,#110900 0%,#161616 100%);border-top:1px solid rgba(255,76,0,.12);border-bottom:1px solid rgba(255,76,0,.12);}
+.bb{font-size:10px;font-family:var(--mn);letter-spacing:3px;color:var(--o);margin-bottom:12px;}
+.btitle{font-size:clamp(24px,3vw,40px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;max-width:600px;}
+.bxb{padding:12px 22px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:10px;text-align:center;flex-shrink:0;}
+.bxn{font-size:26px;font-weight:800;color:#FFD700;font-family:var(--mn);}
+.bxl{font-size:10px;color:rgba(255,215,0,.55);font-family:var(--mn);letter-spacing:1px;}
+.bsc{padding:24px 28px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;font-size:14px;line-height:1.8;color:rgba(255,255,255,.65);margin:28px 0;}
+.bmodes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+.bmbtn{padding:14px;cursor:pointer;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);transition:all .2s;text-align:left;font-family:var(--fm);}
+.bmbtn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);}
+.bmbtn.active{background:rgba(255,76,0,.08);border-color:rgba(255,76,0,.4);}
+.bmi{font-size:18px;margin-bottom:6px;}
+.bmt{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px;}
+.bmd{font-size:10px;color:rgba(255,255,255,.35);}
+.bi{display:flex;gap:16px;padding:16px 20px;margin-bottom:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:9px;align-items:flex-start;}
+.bin{font-size:20px;font-weight:800;color:var(--o);font-family:var(--mn);flex-shrink:0;line-height:1.3;}
+.bit{font-size:13px;line-height:1.7;color:rgba(255,255,255,.65);}
+.ata{width:100%;min-height:220px;padding:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:14px;line-height:1.7;font-family:var(--fm);resize:vertical;outline:none;transition:border-color .2s;}
+.ata:focus{border-color:rgba(255,76,0,.5);}
+.btna{margin-top:14px;display:flex;gap:10px;}
+.btn-p{padding:12px 28px;background:var(--o);color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--fm);}
+.btn-p:hover{background:var(--oh);transform:scale(1.02);}
+.btn-s{padding:12px 28px;background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.14);border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--fm);}
+.btn-s:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+.sbanner{padding:16px 20px;background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.22);border-radius:10px;display:none;margin-top:14px;font-size:13px;color:#FFD700;font-family:var(--mn);}
+.sbanner.show{display:flex;align-items:center;gap:10px;}
+.simbox{padding:22px;background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2);border-radius:10px;margin-bottom:20px;}
+.simlab{font-size:10px;font-family:var(--mn);letter-spacing:2px;color:#f472b6;margin-bottom:10px;}
+.simtxt{font-size:14px;font-style:italic;line-height:1.8;color:rgba(255,255,255,.7);}
+/* TOOLS */
+.tsec{padding:60px 80px;border-top:1px solid var(--bd);}
+.tstrip{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.tc{padding:9px 18px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:12px;font-weight:500;transition:all .2s;cursor:default;}
+.tc:hover{background:rgba(255,76,0,.1);border-color:rgba(255,76,0,.3);color:#ffaa88;}
+.tc.on{border-color:rgba(255,76,0,.3);color:#ffaa88;background:rgba(255,76,0,.08);}
+/* LEADERBOARD */
+
+/* FOOTER */
+footer{padding:40px 80px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-size:15px;font-weight:800;}
+.flogo span{color:var(--o);}
+.fcopy{font-size:12px;color:rgba(255,255,255,.28);}
+/* XP Flash */
+.xpfl{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;background:#FFD700;color:#000;padding:18px 44px;border-radius:8px;font-size:22px;font-weight:800;font-family:var(--mn);letter-spacing:3px;pointer-events:none;opacity:0;transition:opacity .2s;box-shadow:0 0 80px rgba(255,215,0,.6);}
+.xpfl.show{opacity:1;}
+
+/* DOUBLE JEOPARDY */
+.dj-wrap{margin:40px 0;padding:28px 32px;background:linear-gradient(135deg,rgba(255,76,0,.06) 0%,rgba(255,215,0,.04) 100%);border:1px solid rgba(255,215,0,.2);border-radius:14px;position:relative;overflow:hidden;}
+.dj-wrap::before{content:'DOUBLE JEOPARDY';position:absolute;top:12px;right:18px;font-size:9px;font-family:var(--mn);letter-spacing:3px;color:rgba(255,215,0,.4);font-weight:700;}
+.dj-header{font-size:10px;font-family:var(--mn);letter-spacing:3px;color:#FFD700;margin-bottom:4px;}
+.dj-stake{font-size:11px;color:rgba(255,215,0,.55);font-family:var(--mn);margin-bottom:18px;}
+.dj-q{font-size:15px;font-weight:700;color:#fff;line-height:1.55;margin-bottom:20px;}
+.dj-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.dj-opt{padding:12px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;cursor:pointer;font-size:13px;color:rgba(255,255,255,.75);text-align:left;font-family:var(--fm);transition:all .2s;line-height:1.4;}
+.dj-opt:hover:not([disabled]){background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.3);color:#fff;}
+.dj-opt.correct{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:#34d399;font-weight:600;}
+.dj-opt.wrong{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35);color:#f87171;}
+.dj-opt.reveal{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2);color:rgba(52,211,153,.7);}
+.dj-result{padding:14px 18px;border-radius:8px;font-size:13px;line-height:1.6;display:none;}
+.dj-result.show{display:block;}
+.dj-result.win{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#34d399;}
+.dj-result.lose{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;}
+.dj-result.skip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);}
+.dj-skip{margin-top:10px;padding:7px 16px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:11px;color:rgba(255,255,255,.3);cursor:pointer;font-family:var(--fm);transition:all .2s;}
+.dj-skip:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.25);}
+
+
+/* GOT IT + ALT EXPLAIN */
+.concept-footer{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.01);}
+.gotit-btn{display:flex;align-items:center;gap:10px;padding:10px 20px;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;background:transparent;cursor:pointer;font-family:var(--fm);font-size:13px;color:rgba(255,255,255,.5);transition:all .2s;}
+.gotit-btn:hover{border-color:rgba(16,185,129,.5);color:#34d399;}
+.gotit-btn.done{border-color:rgba(16,185,129,.6);background:rgba(16,185,129,.08);color:#34d399;font-weight:600;}
+.gotit-check{width:18px;height:18px;border:2px solid currentColor;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.gotit-btn.done .gotit-check::after{content:'';display:block;width:10px;height:6px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg) translateY(-2px);}
+.alt-btn{padding:9px 18px;border:1px solid rgba(255,76,0,.25);border-radius:8px;background:rgba(255,76,0,.06);cursor:pointer;font-family:var(--fm);font-size:12px;color:rgba(255,150,80,.8);transition:all .2s;}
+.alt-btn:hover{background:rgba(255,76,0,.12);border-color:rgba(255,76,0,.45);color:#FF8C50;}
+.alt-panel{display:none;border-top:1px solid rgba(255,76,0,.12);}
+.alt-panel.open{display:block;}
+.alt-tabs{display:flex;gap:0;padding:0 22px;border-bottom:1px solid rgba(255,255,255,.06);}
+.alt-tab{padding:10px 18px;cursor:pointer;font-size:11px;font-weight:600;color:rgba(255,255,255,.3);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--fm);letter-spacing:.5px;transition:all .2s;}
+.alt-tab.active{color:var(--o);border-bottom-color:var(--o);}
+.alt-content{display:none;padding:20px 22px;}
+.alt-content.active{display:block;}
+.alt-label{font-size:10px;font-family:var(--mn);letter-spacing:2px;color:var(--o);margin-bottom:10px;}
+.alt-text{font-size:13px;line-height:1.85;color:rgba(255,255,255,.72);}
+.progress-bar-wrap{margin-bottom:32px;padding:18px 22px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;gap:16px;}
+.pb-track{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.pb-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--o),#FFD700);transition:width .6s ease;}
+.pb-label{font-size:11px;font-family:var(--mn);color:rgba(255,255,255,.4);white-space:nowrap;}
+.pb-count{font-size:13px;font-weight:700;color:var(--o);font-family:var(--mn);white-space:nowrap;}
+
+</style>
+</head>
+<body>
+<div class="xpfl" id="xpfl"></div>
+<nav>
+  <div class="nav-logo"><div class="nav-flame">AI</div>The AI Ops Masterclass</div>
+  <ul class="nav-links">
+    <li><a href="#phases">Phases</a></li>
+    <li><a href="#bossfight">Boss Fights</a></li>
+    <li><a href="#tools">Tools</a></li>
+    
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('phases').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+</nav>
+<div class="xpw">
+  <span class="xpl">LVL <span id="lvl">1</span></span>
+  <div class="xpt"><div class="xpf" id="xpf"></div></div>
+  <span class="xpc" id="xpc">0 / 3750 XP</span>
+  <span class="xpr" id="xpr"> Operations Supervisor</span>
+</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hbg"></div>
+  <h1 class="hh1">The AI<br><span class="or">Operations<br>Masterclass.</span></h1>
+  <p class="hsub">The only course that fuses AI, MBA strategy, and Ops frameworks into one complete playbook. DMAIC meets transformers. Six Sigma meets agentic systems.</p>
+  <div class="hform">
+    <input class="hinput" type="text" id="nameIn" placeholder="Enter your name" maxlength="32" autocomplete="off"/>
+    <button class="hbtn" onclick="enroll()">Start Learning &rarr;</button>
+  </div>
+  <p class="hlink" id="hlink">Already enrolled? <a href="#phases">Jump to Phase 1 &rarr;</a></p>
+</section>
+<!-- PHASES -->
+<section class="sec" id="phases">
+  <div class="slabel">The Campaign</div>
+  <h2 class="stitle">Six phases.<br>One transformation.</h2>
+  <div class="pgrid" id="pgrid">
+    <div class="pc" style="--pc:#FF6B35" data-ph="1" onclick="openPhase(1)"><div class="plck" id="lk1" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum">PHASE 01</div><div class="pname">Raw Materials</div><div class="psub">AI Foundations · Learning Models · Data Strategy</div><div><span class="ptool">ChatGPT</span><span class="ptool">Claude</span></div><div class="pxp">+500 XP</div></div>
+    <div class="pc" style="--pc:#8B5CF6" data-ph="2" onclick="openPhase(2)"><div class="plck" id="lk2" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum">PHASE 02</div><div class="pname">Product Assembly</div><div class="psub">Generative AI · Value Streams · Competitive Strategy</div><div><span class="ptool">Perplexity</span><span class="ptool">Midjourney</span></div><div class="pxp">+500 XP</div></div>
+    <div class="pc" style="--pc:#10B981" data-ph="3" onclick="openPhase(3)"><div class="plck" id="lk3" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum">PHASE 03</div><div class="pname">Quality Control</div><div class="psub">Reasoning Models · Six Sigma · Decision Analytics</div><div><span class="ptool">Gemini Advanced</span><span class="ptool">NotebookLM</span></div><div class="pxp">+500 XP</div></div>
+    <div class="pc" style="--pc:#F59E0B" data-ph="4" onclick="openPhase(4)"><div class="plck" id="lk4" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum">PHASE 04</div><div class="pname">Automated Plant</div><div class="psub">Agentic AI · Org Design · No-Code Systems</div><div><span class="ptool">Lovable</span><span class="ptool">v0 by Vercel</span></div><div class="pxp">+500 XP</div></div>
+    <div class="pc" style="--pc:#EC4899" data-ph="5" onclick="openPhase(5)"><div class="plck" id="lk5" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum">PHASE 05</div><div class="pname">Enterprise Boardroom</div><div class="psub">AI Strategy · Governance · Leadership & TCO</div><div><span class="ptool">Zapier AI</span><span class="ptool">Fireflies.ai</span></div><div class="pxp">+1000 XP</div></div>
+    <div class="pc" style="--pc:#00D4FF" data-ph="6" onclick="openPhase(6)"><div class="plck" id="lk6" style="font-size:10px;font-family:var(--mn);letter-spacing:1px;color:rgba(255,255,255,.3)"></div><div class="pnum" style="color:#00D4FF">PHASE 06 — DEEP DIVE</div><div class="pname">Agentic Systems</div><div class="psub">5 Layers · 8-Step Builder · Evals · Innovation Culture</div><div><span class="ptool" style="color:#00D4FF">ReAct/CoT/ToT</span><span class="ptool" style="color:#00D4FF">Observability</span></div><div class="pxp" style="color:#00D4FF">+750 XP</div></div>
+  </div>
+  <div class="lp" id="lp">
+    <div class="li">
+      <div id="ywc"></div>
+      <div class="ltabs" id="ltabs"></div>
+      <div id="lconts"></div>
+    </div>
+  </div>
+</section>
+<!-- BOSS -->
+<section class="bs" id="bossfight">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+    <div><div class="bb"> BOSS FIGHT — PHASE <span id="bpn">1</span></div><h2 class="btitle" id="btitle"></h2></div>
+    <div class="bxb"><div class="bxn" id="bxp">500</div><div class="bxl">XP REWARD</div></div>
+  </div>
+  <div class="bsc" id="bsc"></div>
+  <div class="bmodes">
+    <button class="bmbtn active" onclick="bmode('brief',this)"><div class="bmi"></div><div class="bmt">The Brief</div><div class="bmd">Mission + deliverables</div></button>
+    <button class="bmbtn" onclick="bmode('attempt',this)"><div class="bmi"></div><div class="bmt">Your Attempt</div><div class="bmd">Submit your answer</div></button>
+    <button class="bmbtn" onclick="bmode('scaffold',this)"><div class="bmi"></div><div class="bmt">Scaffolding</div><div class="bmd">Hints if needed</div></button>
+    <button class="bmbtn" onclick="bmode('sim',this)"><div class="bmi"></div><div class="bmt">Stakeholder Sim</div><div class="bmd">I play the exec</div></button>
+  </div>
+  <div id="bcont"></div>
+</section>
+<!-- TOOLS -->
+<section class="tsec" id="tools">
+  <div class="slabel">Tool Arsenal</div>
+  <h3 style="font-size:22px;font-weight:700;letter-spacing:-.5px">Top 10 AI Tools of 2026</h3>
+  <div class="tstrip" id="ts">
+    <span class="tc on"><a href="https://chat.openai.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">ChatGPT</a></span><span class="tc on"><a href="https://claude.ai" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Claude</a></span>
+    <span class="tc"><a href="https://www.perplexity.ai" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Perplexity</a></span><span class="tc"><a href="https://www.midjourney.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Midjourney</a></span>
+    <span class="tc"><a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Gemini Advanced</a></span><span class="tc"><a href="https://notebooklm.google.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">NotebookLM</a></span>
+    <span class="tc"><a href="https://lovable.dev" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Lovable</a></span><span class="tc"><a href="https://v0.dev" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">v0 by Vercel</a></span>
+    <span class="tc"><a href="https://zapier.com/ai" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Zapier AI</a></span><span class="tc"><a href="https://fireflies.ai" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Fireflies.ai</a></span>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">The AI Operations Masterclass</div>
+  <div class="fcopy">Neeharika's Ops-to-AI Playbook · 6 Phases · AI + MBA + Ops · 2026</div>
+</footer>
+<script>
+//  PHASES DATA 
+const PD = [
+{id:1,color:'#FF6B35',xp:500,
+ cover:['Fixed code vs. AI learning models','Supervised, Unsupervised & Reinforcement learning','GIGO & data supply chains (Six Sigma supplier quality)','Tokenization & context windows','Prompting as SOPs — Zero-shot, Few-shot, CoT','PDCA prompt optimization loops','MBA: Porter\'s Five Forces applied to AI','MBA: Competitive advantage through data moats','MBA: Strategy formulation frameworks'],
+ bf:{title:'The Zero-Defect SOP Challenge',scenario:'You\'ve been handed ownership of an AI tool that categorizes escalations into 4 buckets: Billing, Technical, Churn Risk, and General. Current mis-categorization rate: 22%. Your target: under 5%. Rewrite the system prompt to bring defect rate below threshold.',
+  brief:['The current broken prompt is: "Categorize this customer message." — Fix it entirely.','Write a full system prompt with: Role, Context, Task, Constraints, Output Format.','Include 5 few-shot examples with correct labels (Billing, Technical, Churn Risk, General).','Add 3 negative guardrails — explicit things the AI must never do.','Define your measurement plan: how will you validate the new prompt reduces error rate to <5%?'],
+  scaffold:['SOP structure: Role → Context → Task → Constraints → Output Format.','Few-shot = labeled training tickets. Same concept as OJT with worked examples.','Negative guardrails = your Do Not policy list. Never assume intent, never invent account data.','Measurement = run 50 test tickets, score against correct labels, calculate DPMO.'],
+  sim:'I\'m your VP of Operations. I\'m looking at your rewritten prompt. Why did you add all those rules? Feels like over-engineering. The old prompt was simpler. Defend your design choices in 3 sentences.'},
+ weeks:[
+  {title:'Week 1 — The Factory Brain',concepts:[
+   {t:'Fixed Code vs. Learning Models',sub:'Day 1–2',
+    mba:'<strong>Framework: Resource-Based View</strong> — Jay Barney\'s 1991 paper <a href="https://www.jstor.org/stable/256725" target="_blank" rel="noopener"><em>Firm Resources and Sustained Competitive Advantage</em></a> argued that sustainable advantage comes from resources that are Valuable, Rare, Inimitable, Non-substitutable (VRIN). Traditional software is none of these — competitors can buy the same CRM, the same routing engine. A model trained on <em>your</em> operational data, labelled by <em>your</em> team, tuned on <em>your</em> edge cases, is VRIN: valuable, rare, impossible to replicate without your history, and non-substitutable. <strong>The strategic implication:</strong> the data your operations generates every day is not exhaust — it is the raw material of a competitive moat that compounds over time. Every labelled ticket, every corrected mis-classification, every human override is an investment in a model your competitors cannot copy. This is why Google, Amazon, and every major platform trains on proprietary operational data rather than buying off-the-shelf AI.',
+    eli5:'Your factory has two machines. Machine A (traditional software) runs the same program every shift — it never adapts. Machine B (an AI model) watches thousands of shifts, learns which sequences reduce defects, and self-adjusts without you reprogramming it. Machine A is a calculator. Machine B is a trainee who gets smarter with every order it processes.',
+    tech:'Traditional software = deterministic logic trees. AI models = parameterized functions that minimize a loss function over training data. The intelligence is baked into 100M–100B numerical weights, not hand-coded rules. Inference = running an input through frozen weights to get an output.',
+    ops:'Traditional software = your Waterfall SOP binder. Fixed, version-controlled, breaks if a new case isn\'t covered. AI model = your best agent after 3 years of floor experience — they handle edge cases because they\'ve pattern-matched thousands of tickets.'},
+   {t:'The Three Learning Types',sub:'Day 3–4',
+    mba:'<strong>Framework: Porter\'s Three Generic Strategies</strong> — In <a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=195" target="_blank" rel="noopener"><em>Competitive Strategy</em> (1980)</a>, Michael Porter argued firms must choose cost leadership (cheapest), differentiation (most distinct), or focus (best for specific niche). The three AI learning paradigms map precisely. <strong>Supervised</strong> = cost leadership: you know your Y variable and optimise toward it efficiently. <strong>Unsupervised</strong> = differentiation: you search for hidden structure your competitors haven\'t found — customer segments, anomaly patterns, emerging topics. <strong>Reinforcement</strong> = dynamic capability: an agent iterates continuously in a specific environment, adapting its strategy in real time based on reward signals you design. <strong>Strategic implication:</strong> choosing the wrong learning type is a strategic misalignment. Using supervised learning on a problem where you haven\'t defined your outcome variable is like competing on cost in a market that only rewards differentiation.',
+    eli5:'Supervised = training a new hire with a labeled answer key. You show 1,000 tickets: THIS is churn risk, THAT is not. Unsupervised = dropping the same hire into the pile and saying: find me the natural clusters. Reinforcement = a video game — the AI makes a move, gets a score, and learns to maximize it over millions of games.',
+    tech:'Supervised: f(x)→y, trained on (input,label) pairs. Loss = difference between predicted and actual label. Unsupervised: clustering (k-means), dimensionality reduction (PCA), anomaly detection — no labels. Reinforcement: agent takes actions in environment, receives reward signal, learns policy π to maximize cumulative reward.',
+    ops:'Supervised = DMAIC Define — you know your Y variable. Unsupervised = exploratory Measure phase — finding hidden Xs. Reinforcement = your incentive scorecard — agents optimize behavior based on the metrics you reward.'},
+   {t:'GIGO & Data Supply Chains',sub:'Day 5',
+    mba:'<strong>Framework: Total Quality Management — Deming &amp; Juran</strong> — W. Edwards Deming\'s foundational insight in <a href="https://www.amazon.com/Out-Crisis-W-Edwards-Deming/dp/0262541157" target="_blank" rel="noopener"><em>Out of the Crisis</em></a> was that quality cannot be inspected into a product — it must be built into the upstream process. Joseph Juran extended this to supplier relationships: accepting defective raw materials produces defective finished goods regardless of assembly line quality. In AI, a defect in training data does not affect one output — it propagates into <em>every</em> prediction the model makes, at scale, silently, with high confidence. <strong>The governance implication:</strong> data quality is a board-level strategic risk obligation. The <a href="https://www.nist.gov/system/files/documents/2023/01/26/AI_RMF_1_0.pdf" target="_blank" rel="noopener">NIST AI Risk Management Framework</a> and the EU AI Act both treat data governance as a first-order obligation. <strong>Apply it:</strong> build a Data Quality SLA with the same rigour as a supplier SLA — define acceptance thresholds for completeness, consistency, and label agreement before any training run begins.',
+    eli5:'Garbage In, Garbage Out. If your WFM tool gets wrong headcount numbers, your schedule is wrong — full stop. AI training data is your upstream supplier. Defective parts in = defective product out, no matter how good your assembly line is.',
+    tech:'Training data quality dimensions: completeness (no missing values), consistency (no conflicting labels), recency (data drift — old patterns ≠ current reality), balance (class imbalance skews predictions), coverage (edge cases in prod not in training = blind spots).',
+    ops:'Data pipeline = inbound supply chain. Raw data = raw materials. ETL = goods receipt + quality check + put-away. Data warehouse = finished goods inventory. Model training = the manufacturing run. GIGO = your supplier scorecard — if supplier quality drops below threshold, halt the line.'}
+  ]},
+  {title:'Week 2 — Prompting as SOPs',concepts:[
+   {t:'Tokenization & Context Windows',sub:'Day 1–2',
+    mba:'<strong>Framework: Knowledge Management — Nonaka\'s SECI Model</strong> — Ikujiro Nonaka and Hirotaka Takeuchi\'s <a href="https://www.amazon.com/Knowledge-Creating-Company-Japanese-Companies/dp/0195092694" target="_blank" rel="noopener"><em>The Knowledge-Creating Company</em> (1995)</a> distinguished between <strong>tacit knowledge</strong> (know-how, intuition — difficult to transfer) and <strong>explicit knowledge</strong> (documented, searchable). Their SECI model describes how organisations move knowledge between these forms. The context window = the AI\'s working memory — the explicit knowledge it actively reasons about right now. RAG = the Combination step operationalised: retrieving explicit knowledge on demand and injecting it into the model\'s working memory. Fine-tuning = the Internalisation step: baking explicit patterns into the model\'s weights permanently. <strong>The architectural decision for Ops leaders:</strong> what lives in the system prompt (always-on), what lives in a knowledge base (on-demand retrieval), and what gets trained into the model (internalised)? Each has different cost, freshness, and governance implications.',
+    eli5:'AI doesn\'t read words — it reads chunks called tokens. "Operational" might be 3 tokens: "Oper", "ation", "al". A context window is the AI\'s working memory — like a whiteboard. Claude\'s whiteboard holds ~200,000 tokens. Anything on that whiteboard is in context. Anything erased is forgotten.',
+    tech:'Tokenization: BPE (Byte Pair Encoding) splits text into subword units. ~1 token ≈ 0.75 English words. Context window = max sequence length the transformer can attend to. Attention is O(n²) — bigger windows = exponentially more compute. In-context learning: no weight updates, model learns from examples in the prompt.',
+    ops:'Context window = your agent\'s RAM during a live interaction. Knowledge base (RAG) = CRM they query mid-call. Fine-tuning = actual training that updates long-term memory. Hitting the context limit = agent\'s screen times out and they lose their notes.'},
+   {t:'Prompting as SOPs — The Full Framework',sub:'Day 3–4',
+    mba:'<strong>Framework: Business Process Reengineering</strong> — Hammer and Champy\'s <a href="https://www.amazon.com/Reengineering-Corporation-Manifesto-Business-Revolution/dp/0066621127" target="_blank" rel="noopener"><em>Reengineering the Corporation</em> (1993)</a> argued that breakthrough performance comes from redesigning processes from scratch around outcomes, not incrementally improving existing ones. A poorly written prompt is a badly designed process: the AI works hard to produce output that doesn\'t meet the requirement. <strong>Prompt engineering IS process engineering.</strong> Same principles: clear inputs, unambiguous transformation logic, measurable quality standards, specified output format. The governance principle: before you prompt-engineer any AI task, ask whether the underlying process is worth automating at all. See <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Anthropic\'s prompt engineering guide</a> for the five-element framework implemented in production.',
+    eli5:'A prompt is literally an SOP for the AI. A bad SOP: "handle the customer well." A good SOP: Role (Tier 2 billing specialist), Context (customer escalated twice), Task (identify billing discrepancy root cause), Constraints (no refunds above $50 without approval), Output Format (bullet points, max 5). Same structure. Different operator.',
+    tech:'Prompt anatomy: System prompt (persona + constraints) → User message (task) → Assistant prefill (output steering). Techniques: Zero-shot (no examples), Few-shot (2–5 labeled examples), Chain-of-Thought (think step by step — triggers reasoning traces), ReAct (Reasoning + Acting — interleaves thought and tool calls).',
+    ops:'Zero-shot = hiring for attitude, no training. Few-shot = structured OJT with 3 worked examples. CoT = requiring agents to document logic in case notes before resolving. Negative guardrails = your Do Not policy list: never read account numbers on call, never promise SLAs you can\'t meet.',
+       alt:[
+        'SPORTS ANALOGY: A chess computer running fixed code plays the same opening every time. AlphaZero learned by playing millions of games against itself and discovered strategies no human had ever written down. Traditional software = playing from a memorised book. An AI model = a player who has genuinely learned the game and invents new moves. The learning is what makes it powerful.',
+        'FINANCIAL ANALOGY: A fixed rule system is like a bond — predictable return, no surprises. An AI model is like an equity — it can outperform significantly in scenarios the fixed rules never anticipated, but it requires ongoing oversight. Neither is universally better. The choice depends on how much output variability you can tolerate.'
+       ]},
+   {t:'PDCA Prompt Optimization Loops',sub:'Day 5',
+    mba:'<strong>Framework: Deming\'s PDCA &amp; System of Profound Knowledge</strong> — Walter Shewhart created the Plan-Do-Check-Act cycle in the 1930s; Deming popularised it through <a href="https://www.amazon.com/Out-Crisis-W-Edwards-Deming/dp/0262541157" target="_blank" rel="noopener"><em>Out of the Crisis</em></a>. Deming\'s deeper contribution was the System of Profound Knowledge — four lenses: understanding variation (which output differences are defects vs. expected?), understanding the system (prompt + model + context = one system), theory of knowledge (learn from eval sets, not individual examples), and psychology (human reviewers bring biases to labelling). All four apply directly to prompt optimisation. <strong>The discipline that separates professionals from amateurs:</strong> maintaining an evaluation set — a fixed set of 30-100 representative test cases with validated expected outputs — and running it on every prompt change. Without this, you cannot distinguish an improvement from a coincidence. See <a href="https://docs.anthropic.com/en/docs/test-and-evaluate/eval-using-human-feedback" target="_blank" rel="noopener">Anthropic\'s eval guide</a> for implementation.',
+    eli5:'Your first prompt is never perfect. Treat it like a process improvement cycle. Plan (write the prompt), Do (run it), Check (is the output what you needed?), Act (refine the prompt). Repeat until output quality hits your defect threshold.',
+    tech:'Prompt engineering as iterative optimization: evaluate outputs against a rubric (accuracy, format, tone, completeness). A/B test prompt variants. Build an eval set — 20–50 representative inputs with expected outputs — and score prompt changes against it. This is manual gradient descent on your system prompt.',
+    ops:'Prompt PDCA = your DMAIC Improve phase. Eval set = your control chart. Prompt version history = your change log. Regression testing on prompts = ensuring your process change didn\'t break existing cases.',
+       alt:[
+        'COOKING ANALOGY: Supervised = learning to cook from a recipe book with a chef who corrects every dish. Unsupervised = being given 500 ingredients with no recipe and asked to find which ones naturally go together. Reinforcement = running a restaurant and adjusting your menu based on which dishes get ordered again and which get sent back.',
+        'MANAGEMENT ANALOGY: Supervised learning = performance management with a rubric — you tell people exactly what good looks like. Unsupervised = a 360 feedback exercise — you gather unstructured input and look for themes that emerge. Reinforcement = running a pilot programme with incentives — the behaviour that gets rewarded grows, the rest doesn\'t.'
+       ]}
+  ]}
+ ]
+},
+{id:2,color:'#8B5CF6',xp:500,
+ cover:['Text as a value stream — NLP pipeline breakdown','Hallucination as defect rate & DPMO mapping','Perplexity for real-time intelligence operations','Vision AI as digital quality inspector','Midjourney for Ops visual communication','MBA: Blue Ocean Strategy & value innovation','MBA: Customer Value Proposition design','MBA: Competitive benchmarking frameworks'],
+ bf:{title:'The Omnichannel Visual Audit',scenario:'Your VP needs a Channel Health Report for the QBR. You need to analyze Email, Chat, and Voice channels, identify waste in each stream, produce a visual for the deck, and write the narrative commentary — using only AI tools.',
+  brief:['Use Perplexity to research industry benchmark AHT, CSAT, and FCR by channel type.','Use Claude or ChatGPT to write a structured value-stream analysis for your 3 channels vs benchmarks.','Use Midjourney to generate a compelling visual for the QBR deck slide.','Write the 3-bullet executive narrative that accompanies the slide.','Identify where hallucination risk is highest in this workflow and your mitigation strategy.'],
+  scaffold:['Perplexity search: "contact centre benchmarks Email Chat Voice AHT CSAT FCR 2025".','Value-stream structure: Current State → Benchmark Gap → Waste Type → Corrective Lever.','Midjourney prompt: "Professional data visualization, dark background, orange accent, minimal --ar 16:9".','Hallucination risk is highest in benchmark research — always cite your sources explicitly.'],
+  sim:'I\'m your QBR audience — your Director and VP. This visual is nice but how do I know the benchmark data is accurate? What\'s your source validation process for AI-generated research? You have 60 seconds.',
+       alt:[
+        'LEGAL ANALOGY: Imagine a court case where all witness testimony was collected under duress or where witnesses lied consistently. The verdict might be legally sound given the evidence — but it is fundamentally wrong because the evidence was corrupt. AI trained on biased data reaches confident, mathematically rigorous conclusions from corrupt premises.',
+        'NAVIGATION ANALOGY: Dead reckoning navigation calculates position by tracking speed and direction from a known starting point. A 1-degree error at the start becomes a 100-mile error after 5,000 miles. GIGO in AI is the same: small systematic biases in training data compound through millions of parameters and produce outputs that are confidently, precisely wrong.'
+       ]},
+ weeks:[
+  {title:'Week 3 — Text as a Value Stream',concepts:[
+   {t:'Text Processing & Value-Stream Mapping',sub:'Day 1–2',
+    mba:'<strong>Framework: Porter\'s Value Chain &amp; Lean Value-Stream Mapping</strong> — Michael Porter\'s <a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=183" target="_blank" rel="noopener"><em>Competitive Advantage</em> (1985)</a> introduced the value chain: which activities create value and which are overhead. Taiichi Ohno\'s <a href="https://www.amazon.com/Toyota-Production-System-Beyond-Large-Scale/dp/0915299143" target="_blank" rel="noopener">Toyota Production System</a> contributed the seven wastes and value-stream mapping: physically walk a process to identify where value is added versus where time is consumed with no output. In a service operation, most value creation happens through information flows, not physical flows. NLP is the value-stream mapping tool for text: it identifies the value-bearing signal (account number, issue type, urgency), strips noise (pleasantries, repeated context), and routes the signal. <strong>Lean principle applied:</strong> any manual triage step that does not transform the signal is waste in Ohno\'s sense — and NLP eliminates it.',
+    eli5:'Every piece of text your team handles — emails, tickets, chats — is a product moving through a value stream. Some text adds value (actionable info). Some is waste (pleasantries, repeated context, noise). NLP is your value-stream mapping tool for text. It identifies value, strips waste, and routes the signal.',
+    tech:'NLP pipeline: Tokenization → POS tagging → Named Entity Recognition (NER) → Dependency parsing → Semantic embedding (convert text to vectors) → Downstream task (classification, summarization, extraction). LLMs collapse this pipeline — raw text in, structured output out.',
+    ops:'NLP pipeline = your ticket triage SOP. NER = entity extraction (who is the customer, what is the account, what is the issue). Semantic similarity = fuzzy matching for duplicate detection. Text classification = your routing rules engine, learned from data instead of hardcoded.',
+       alt:[
+        'FILM EDITING ANALOGY: A context window is like a film editor\'s viewing table. They can only lay out a certain number of reels at once. Everything on the table influences the cut they make. RAG is the filing cabinet next to the table — the editor can pull any reel on demand, but only what\'s currently on the table shapes the decision in the moment.',
+        'WORKING MEMORY ANALOGY: Cognitive psychology defines working memory as the small amount of information held actively in mind during reasoning — humans can hold roughly 7 items. AI context windows hold 100,000+ tokens. Both have a hard limit. Once that limit is reached, older items are displaced. The difference: AI context windows are precise and deterministic — you know exactly what\'s in them.'
+       ]},
+   {t:'Hallucination as Defect Rate',sub:'Day 3',
+    mba:'<strong>Framework: Six Sigma Quality Control &amp; Risk Management</strong> — Six Sigma, codified by Motorola and popularised through <a href="https://www.amazon.com/Six-Sigma-Way-Organizations-Defect-free/dp/0071358064" target="_blank" rel="noopener">Mikel Harry and Richard Schroeder\'s work</a>, defines quality in terms of Defects Per Million Opportunities (DPMO) — the 6-sigma target is 3.4 DPMO. AI hallucination is a defect, but unlike manufacturing defects (random), hallucinations can be <em>systematic</em>: biased training data produces consistent directional errors. <a href="https://www.iso.org/iso-31000-risk-management.html" target="_blank" rel="noopener">ISO 31000</a> distinguishes risks by probability AND consequence: a hallucination in a low-stakes draft has low consequence; a hallucination in customer-facing financial advice is catastrophic. <strong>The governance response must be proportionate to consequence, not just probability</strong> — exactly the logic behind your incident severity classification. Classify every AI use case by consequence tier and set a different DPMO threshold and control mechanism for each.',
+    eli5:'AI hallucination = your agent confidently giving the wrong account balance because they misread the screen. It looks correct. The confidence is the problem. AI doesn\'t know what it doesn\'t know — it generates the most statistically probable next token, even if factually wrong.',
+    tech:'Hallucination types: (1) Factual — stating incorrect facts confidently. (2) Faithfulness — summarizing a document inaccurately. (3) Extrinsic — adding information not in source. Mitigation: RAG (grounding in source docs), temperature reduction, citation requirements, constitutional AI.',
+    ops:'Hallucination rate = your DPMO. Six Sigma target: <3.4 DPMO = <0.00034% error rate. For high-stakes outputs (legal, financial, churn decisions), treat hallucination like a P0 defect — requires human-in-the-loop quality gate before output reaches the customer.',
+       alt:[
+        'ARCHITECTURE ANALOGY: A prompt is a building brief. A bad brief says \'build me a nice house.\' The architect makes a thousand assumptions, the client is disappointed, and everyone blames each other. A good brief specifies: number of rooms, load-bearing requirements, budget, timeline, materials restrictions. The better the brief, the better the building — regardless of how talented the architect is.',
+        'LEGAL CONTRACT ANALOGY: A poorly written contract has ambiguous terms that both parties interpret differently — and the dispute only surfaces when something goes wrong. A well-drafted contract defines every term, specifies every obligation, lists every exclusion. Prompt writing is contract drafting for AI behaviour: every ambiguity you leave in the prompt will be resolved by the model in a way you did not intend.'
+       ]},
+   {t:'Perplexity as Your Real-Time Intelligence Center',sub:'Day 4–5',
+    mba:'<strong>Framework: Competitive Intelligence &amp; Porter\'s Five Forces</strong> — Michael Porter\'s <a href="https://hbr.org/1979/03/how-competitive-forces-shape-strategy" target="_blank" rel="noopener">Five Forces framework</a> (1979) — threat of new entrants, supplier power, buyer power, threat of substitutes, competitive rivalry — provides the analytical scaffolding for competitive intelligence. Historically, a rigorous Five Forces analysis required weeks of analyst time. <a href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity AI</a> compresses this to minutes. <strong>The strategic shift:</strong> competitive intelligence was historically a function of resources — large firms with dedicated strategy teams had an information advantage. AI-native research tools democratise this advantage. The McKinsey competitive intelligence framework argues the edge now belongs to organisations that <em>act on intelligence faster</em>, not those that gather it first. Perplexity compresses gather time; your judgment determines action quality.',
+    eli5:'Perplexity reads the entire internet in real time and gives you a cited summary instead of 10 blue links. Google gives you links. Perplexity gives you the synthesized answer with sources. For Ops: competitive benchmarking, regulatory lookups, real-time market signals — all cited, all sourced.',
+    tech:'Perplexity = LLM + live web search + citation layer. Architecture: query → search index retrieval → LLM synthesis over retrieved docs → output with inline citations. Key features: Spaces for team knowledge bases, Copilot for multi-step research. Pro tier = GPT-4o + Claude 3.5 Sonnet engines switchable.',
+    ops:'Perplexity = your real-time intelligence feed. Use it where you\'d previously assign someone to "do a quick Google and write a summary." Massive time-to-insight compression. Build Perplexity Spaces as team-specific knowledge hubs — your ops wiki, searchable and AI-synthesizable.',
+       alt:[
+        'SCIENTIFIC METHOD ANALOGY: A scientist does not change three variables at once and try to figure out which one caused the result. They isolate one variable, run the experiment, measure the outcome, form a conclusion. Prompt optimisation is the scientific method applied to language: one change per iteration, a fixed test set as your control group, empirical measurement of outcomes.',
+        'IVR TUNING ANALOGY: Think of prompt optimisation like tuning a contact centre IVR. You don\'t release every change straight to production. You A/B test on a controlled sample. You measure containment rate, call deflection, and CSAT. You have rollback criteria. The exact same operational discipline that makes your IVR changes safe makes your prompt changes safe.'
+       ]}
+  ]},
+  {title:'Week 4 — Vision AI & Visual Ops',concepts:[
+   {t:'Vision AI as Digital Inspector',sub:'Day 1–2',
+    mba:'<strong>Framework: Digital Transformation — Three Zones of Investment</strong> — Westerman, Bonnet, and McAfee\'s research at MIT Sloan (<a href="https://mitsloan.mit.edu/ideas-made-to-matter/what-is-digital-transformation" target="_blank" rel="noopener"><em>Leading Digital</em>, 2014</a>) identified three zones: operational efficiency (faster/cheaper), customer experience (better service), and new business models (entirely new things). Vision AI spans all three simultaneously. Operational efficiency: automated dashboard analysis eliminates manual MIS review. Customer experience: real-time visual QA catches defects before they reach customers. New business model: an internal Vision AI capability can become an external product. McKinsey Global Institute estimates <a href="https://www.mckinsey.com/featured-insights/artificial-intelligence" target="_blank" rel="noopener">visual inspection automation</a> delivers 40-60% QA labour cost reduction while improving defect detection rates.',
+    eli5:'A quality inspector who looks at a photo of your ops dashboard and instantly says: SLA breach rate is red, this chart shows a downward trend, this table has 3 anomalies. That\'s Vision AI. It processes images and gives you structured analysis as outputs.',
+    tech:'Vision models (GPT-4V, Claude 3.5, Gemini 1.5) use ViT (Vision Transformer) to convert images into patch embeddings processed by the same transformer as text. Multimodal = multiple input types (text + image + audio + video) in a unified model. Use cases: document parsing, chart reading, UI analysis, screenshot-to-code.',
+    ops:'Vision AI = your automated MIS reviewer. Upload your weekly ops dashboard screenshot → instant narrative commentary on KPI movements, anomalies, and trend breaks. The MBR dashboard commentary section: drafted in 8 seconds. No more 45-minute manual write-up.'},
+   {t:'Midjourney for Ops Visual Communication',sub:'Day 3–5',
+    mba:'<strong>Framework: Organisational Communication &amp; Stakeholder Management</strong> — Edward Tufte\'s <a href="https://www.edwardtufte.com/tufte/books_vdqi" target="_blank" rel="noopener"><em>The Visual Display of Quantitative Information</em> (1983)</a> established that visual communication quality is the primary determinant of whether complex information is acted upon. Research by 3M and Wharton found visuals improve retention by 65% versus text alone, and presentations with high-quality graphics are 67% more persuasive. For operations leaders, this is a decision-quality concern, not an aesthetic one: an RCA with a compelling visual reaches decision-makers faster and gets acted on more reliably than a text-heavy report with identical analytical quality. <a href="https://www.midjourney.com" target="_blank" rel="noopener">Midjourney</a> gives every ops leader designer-quality visuals without a design team dependency.',
+    eli5:'Midjourney: type a description, get a professional image. For Ops leaders: deck imagery, process diagrams, org change visuals, ERG campaign graphics, training material headers. No stock photo subscriptions. No design queue.',
+    tech:'Midjourney uses a diffusion model: starts with random noise, iteratively denoises toward an image matching your text prompt via CLIP embeddings. Key parameters: --ar (aspect ratio), --style (aesthetic), --chaos (variation), --no (negative prompts). V6.1 adds text rendering in images.',
+    ops:'Midjourney = your on-demand design resource. ERG campaign headers, leadership deck imagery, monthly review cover slides — 60 seconds instead of a 3-day design request queue. Prompt formula: [subject] + [style: professional/editorial/cinematic] + [mood: dark/minimal/bold] + [--ar 16:9] + [--no text].',
+       alt:[
+        'POSTAL SORTING ANALOGY: A postal sorting office receives thousands of letters with no organisation. Human sorters read each address and put it in the right bin. NLP is the automated scanning system that reads the address (NER), determines the postcode (classification), checks for duplicates, flags fragile items (urgency scoring), and routes each letter to the correct truck — before a human ever touches it.',
+        'TRIAGE NURSE ANALOGY: An A&E triage nurse performs rapid assessment: takes vital signs, assigns urgency level, checks medication history, and determines which specialist is needed. NLP is the AI triage nurse for your text flows. It doesn\'t diagnose or treat — that\'s your agents. It ensures every case arrives at the right resource with the right priority and the right context already attached.'
+       ]}
+  ]}
+ ]
+},
+{id:3,color:'#10B981',xp:500,
+ cover:['Chain-of-Thought sequential reasoning (AI DMAIC)','Automated 5 Whys & root cause analysis','Gemini Advanced code interpreter for live data analysis','NotebookLM as institutional knowledge base','Automated Pareto (80/20) chart generation','Shrinkage & capacity waste tracking with AI','MBA: Decision-Making Frameworks (Kepner-Tregoe, decision trees)','MBA: Predictive Analytics & forecasting strategy','MBA: Balanced Scorecard & KPI architecture'],
+ bf:{title:'The Black Belt Data Crash Test',scenario:'Shrinkage on your night-shift team spiked to 34% (target: 22%). Your Director needs a full root cause analysis with corrective actions and a projected recovery timeline by EOD. You have raw attendance data, schedule adherence logs, and agent-level performance data.',
+  brief:['Upload your data to Gemini Advanced and run an automated 5 Whys analysis with data citations for each Why.','Use the code interpreter to generate a Pareto chart of the top shrinkage contributors.','Upload relevant SOPs to NotebookLM and query: "What corrective actions does our policy prescribe for shrinkage above 30%?"','Produce a 1-page RCA: problem statement, 5 Whys chain, top 3 corrective actions, projected recovery curve.','Flag where human judgment is irreplaceable in this workflow — be specific about which decisions cannot be automated.'],
+  scaffold:['5 Whys chain: spike → staffing gap → unplanned leave → burnout signals → consecutive closing shifts → shift template not updated in 6 months.','Pareto prompt: "Analyze [shrinkage_category] column, rank by frequency, calculate cumulative %, identify top 80% contributors, plot chart."','Recovery curve = project the trajectory if corrective actions are implemented in weeks 1, 2, and 4.','Human judgment layer: deciding whether to performance-manage vs. support an agent is irreplaceable — context matters.'],
+  sim:'Your Director is reviewing your RCA: "These corrective actions look like boilerplate. How do I know the AI didn\'t just generate generic recommendations? Walk me through exactly which data point drove each of the 3 recommendations."',
+       alt:[
+        'AUTOPILOT ANALOGY: Modern aircraft autopilot can fly a transatlantic route more precisely than a human pilot. But it can also fly confidently into a mountain if the navigation system gives it bad data. The autopilot doesn\'t know it\'s wrong — it faithfully executes a flawed instruction with complete precision. AI hallucination is the same: the model executes its statistical prediction with complete confidence, regardless of whether it reflects reality.',
+        'WITNESS TESTIMONY ANALOGY: Research in cognitive psychology shows that human memory is reconstructive, not reproductive. Witnesses to the same event remember different things and fill gaps with plausible inferences — and are most confident about the details they have fabricated most coherently. AI hallucination is the same cognitive failure pattern, scaled and accelerated. The model is not lying. It is sincerely producing its most plausible reconstruction.'
+       ]},
+ weeks:[
+  {title:'Week 5 — Chain-of-Thought & Root Cause',concepts:[
+   {t:'Chain-of-Thought as Sequential Reasoning',sub:'Day 1–2',
+    mba:'<strong>Framework: McKinsey Pyramid Principle &amp; Kepner-Tregoe</strong> — Barbara Minto\'s <a href="https://www.amazon.com/Pyramid-Principle-Logic-Writing-Thinking/dp/0273710516" target="_blank" rel="noopener">Pyramid Principle</a> argues all executive communication should lead with the conclusion, then arguments, then data. Kepner and Tregoe\'s <a href="https://www.kepner-tregoe.com" target="_blank" rel="noopener">Rational Manager methodology</a> (1965) provides systematic problem analysis: define the deviation precisely, describe IS versus IS NOT, identify what is distinctive about the IS conditions, use that distinctiveness to identify the cause. Chain-of-Thought prompting forces AI to reason in exactly this structure: state the hypothesis, show the chain, cite the evidence, conclude. <strong>The quality control implication:</strong> just as Kepner-Tregoe prevents analysts from jumping to preferred explanations, CoT prevents the model from jumping to statistically probable but contextually wrong answers. The reasoning chain is auditable — you can dispute any step and identify exactly where the reasoning diverged from reality.',
+    eli5:'A junior analyst: "SLA breach rate went up." A Black Belt: "SLA breach +12% → traced to Tuesday night shift → cross-referenced schedule adherence → 4 agents on unplanned leave → root cause: BGV delay in onboarding 3 new hires." That visible reasoning chain is Chain-of-Thought. Add "think step by step" and the AI shows its work.',
+    tech:'CoT prompting: adding reasoning traces before the final answer dramatically improves accuracy on multi-step tasks. Forces the model to allocate more tokens to intermediate steps, reducing shortcut errors. Variants: Zero-shot CoT ("think step by step"), Few-shot CoT (worked examples with reasoning), Tree of Thoughts (explore multiple reasoning branches, pick best path).',
+    ops:'CoT = your mandatory "show your working" policy before case closure. Just like requiring agents to document diagnostic steps in case notes before resolution — it reduces errors, creates an audit trail, and surfaces the actual root cause instead of symptom treatment.',
+       alt:[
+        'LIBRARIAN ANALOGY: The best research librarians know every resource in the library and can find any specific piece of information across thousands of sources in under 5 minutes, and they cite their sources. Perplexity is this librarian, but the library is the entire internet and she never goes home and never says \'I think it\'s in the 2019 version of the SOP but I\'m not sure which folder.\'',
+        'STAFF RESEARCHER ANALOGY: Imagine you had a research analyst whose only job was to answer questions quickly and accurately. You could ask them anything and they\'d return in 5 minutes with a cited answer. That analyst would cost significant salary. Perplexity Pro is a fraction of that. The leverage is obvious. The skill gap is the same as with any analyst: you need to brief them precisely and interrogate their findings.'
+       ],
+       alt:[
+        'RADIOLOGIST ANALOGY: A radiologist looks at an X-ray and immediately identifies anomalies that a non-specialist would miss entirely. Vision AI is the radiologist for your operational data. It reads your dashboard the way a radiologist reads a scan: trained on thousands of examples of what \'healthy\' looks like, immediately flagging what deviates from the expected pattern.',
+        'SATELLITE IMAGERY ANALOGY: Intelligence agencies use satellite imagery to detect changes in military installations and infrastructure. The analysts don\'t look at every pixel — they use AI to flag changes between images and only review flagged areas. Your ops dashboards are satellite imagery of your operation. Vision AI is the change-detection algorithm.'
+       ]},
+   {t:'Automated 5 Whys & DMAIC Analyze',sub:'Day 3–4',
+    mba:'<strong>Framework: Ishikawa Root Cause Analysis &amp; DMAIC</strong> — Kaoru Ishikawa\'s contribution in <a href="https://www.amazon.com/Guide-Quality-Control-Kaoru-Ishikawa/dp/9283310357" target="_blank" rel="noopener"><em>Guide to Quality Control</em> (1968)</a> was the insight that 85% of quality defects are caused by management-system failures, not individual worker failures. His root cause methodology became the core of <a href="https://asq.org/quality-resources/dmaic" target="_blank" rel="noopener">Six Sigma\'s DMAIC Analyse phase</a>. The 5 Whys is the accessible version: for every symptom, ask Why five times to reach the systemic cause. <strong>What AI changes:</strong> a human analyst under time pressure tends to stop at the first plausible explanation (cognitive closure). An AI with the right prompt and data drills to the systemic cause in 90 seconds regardless of time pressure. <strong>The statistical upgrade:</strong> combined with code interpreter running regression on your data, the automated 5 Whys transitions from qualitative hypothesis to quantitative causal inference — the difference between "we think it\'s the shift pattern" and "p < 0.01, shift pattern explains 73% of variance."',
+    eli5:'You know the 5 Whys drill. Why SLA breach? → staffing gap. Why? → high unplanned leave. Why? → burnout signals in night shift. Why burnout? → consecutive closing shifts without rotation. Why no rotation? → shift template hasn\'t been updated in 6 months. A reasoning model runs this entire drill in seconds with the right data and prompt.',
+    tech:'Structured analytical prompting for root cause: (1) Frame the problem statement precisely. (2) Provide the data. (3) Instruct: "Perform a 5 Whys analysis. For each Why, cite the specific data point. Generate a fishbone diagram in text format. Recommend the highest-leverage corrective action." Gemini Advanced + code interpreter runs statistical tests inline.',
+    ops:'This is your DMAIC Analyze phase on autopilot. Feed Gemini your raw ops CSV, prompt through the Analyze framework, get a draft root cause analysis in 3 minutes that would have taken an analyst 3 hours. Your job: validate and contextualize. AI does computation; you supply operational judgment.',
+       alt:[
+        'DESIGN LEVERAGE ANALOGY: A professional designer produces 3-5 presentation-quality visuals per day. If your presentation quality determines whether a major initiative gets approved or delayed, the design cost is trivial. But if you need visuals for a weekly ops deck, monthly MBR, QBR, ERG campaign, and training module — all with 24-hour turnarounds — the capacity isn\'t there. Midjourney eliminates the dependency for the operational cadence.',
+        'FIRST DRAFT ANALOGY: No good writer starts with a blank page if they can avoid it. They start with a rough draft, an outline, something to adapt. Midjourney gives you a 70% visual solution in 60 seconds. The remaining 30% — cropping, text overlay, data integration — you do in Canva or PowerPoint. The gain is never starting from nothing.'
+       ]},
+   {t:'Gemini Advanced — The Multimodal Ops Brain',sub:'Day 5',
+    mba:'<strong>Framework: General-Purpose Technology &amp; Combinatorial Innovation</strong> — Economists define <a href="https://www.brookings.edu/articles/is-this-time-different-the-opportunities-and-challenges-of-artificial-intelligence/" target="_blank" rel="noopener">General-Purpose Technologies</a> as technologies that enable productivity improvements across all sectors — electricity, the internet, AI. Weitzman\'s combinatorial innovation theory explains how value is created: not through individual new ideas but through combining existing ideas in novel ways. <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener">Gemini Advanced\'s</a> 1 million token context window enables cross-referencing datasets that was previously computationally infeasible: six months of scheduling decisions against six months of performance data against six months of product change logs — all visible simultaneously. <strong>The strategic question for operations leaders:</strong> which of your analytical workflows were impossible not because of talent or time, but because no tool could hold the full context at once?',
+    eli5:'Gemini Advanced can read spreadsheets, watch videos, listen to audio, and write code — all in the same conversation. Its superpower: the longest context window (1M tokens = your entire quarterly dataset), native Google Workspace integration, and a built-in code interpreter for live data analysis.',
+    tech:'Gemini 1.5 Pro: 1M token context (≈750,000 words). Multimodal: text, image, audio, video, code. Google Workspace integration: direct Drive/Docs/Sheets/Gmail access. Code interpreter: runs Python (pandas + matplotlib) in sandbox. Gems = custom AI personas (Gemini\'s version of Projects).',
+    ops:'Upload 6 months of ops data into Gemini, ask for trend analysis, build a Pareto chart of defect categories, draft the MBR narrative — all in one context window. No copy-pasting between tools. Previously: 3 hours across 4 apps. Now: 15 minutes in one conversation.'}
+  ]},
+  {title:'Week 6 — NotebookLM & Knowledge Architecture',concepts:[
+   {t:'NotebookLM as Your Ops Knowledge Base',sub:'Day 1–3',
+    mba:'<strong>Framework: Knowledge Management — SECI &amp; Organisational Learning</strong> — Nonaka and Takeuchi\'s SECI model (Socialisation, Externalisation, Combination, Internalisation) describes how organisations create and transfer knowledge. The critical pathology — knowledge hoarding, where operational expertise exists only in individual experts\' heads — is directly addressed by <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a>. The <strong>bus factor</strong> (how many key people must leave before the org cannot function) measures knowledge concentration risk. Argyris and Schon\'s <a href="https://www.amazon.com/Organizational-Learning-Theory-Action-Perspective/dp/0201001748" target="_blank" rel="noopener">double-loop learning theory</a> (1978) distinguishes single-loop (fixing problems within existing assumptions) from double-loop (questioning the assumptions themselves). NotebookLM enables double-loop: querying your full archive of MBRs, incident reports, and RCAs simultaneously lets you ask "what assumptions in our process design keep producing this result?" — impossible when evidence is scattered across 12 months of separate documents.',
+    eli5:'NotebookLM is a research assistant who has read every document you\'ve ever uploaded and can answer questions about them — citing exactly which document and paragraph the answer comes from. No hallucination on your own documents. Grounded entirely in what you give it.',
+    tech:'NotebookLM = RAG-native tool. Architecture: upload documents → indexed into vector store → queries retrieve relevant chunks → Gemini synthesizes answer grounded in your docs. Features: Audio Overview (generates podcast-style discussion), Study Guide (auto-generates Q&A), inline citations always pointing to source doc.',
+    ops:'Use cases: (1) Upload all SOPs + runbooks → searchable knowledge base your whole team queries. (2) Upload last 12 MBRs → ask "what are the recurring root causes across quarters?" (3) Upload training materials → generate quiz for new hire assessment. Your tribal knowledge, made queryable by 66 agents.'},
+   {t:'Pareto Automation & Shrinkage Analysis',sub:'Day 4–5',
+    mba:'<strong>Framework: Pareto Principle &amp; Operations Research</strong> — Vilfredo Pareto observed in 1896 that 80% of land in Italy was owned by 20% of the population. Joseph Juran, applying this to quality management in <a href="https://www.amazon.com/Juran-Quality-Handbook-Joseph-Juran/dp/0070340358" target="_blank" rel="noopener"><em>Juran\'s Quality Handbook</em></a>, coined the "vital few versus trivial many" principle: a small number of defect causes account for the majority of defects. <strong>The strategic insight:</strong> before Pareto analysis, quality improvement resources were spread proportionally across all defect types. After: 80% of resources focused on the 20% of causes responsible for 80% of defects — exponential improvement per unit of investment. <strong>What AI changes:</strong> <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener">Gemini\'s</a> code interpreter generates the complete Pareto analysis — ranked frequency table, cumulative percentage, visual chart — in under 2 minutes. The analysis that once justified a dedicated analyst role becomes a Monday morning routine. The bottleneck shifts from computation to question quality: defining the right Pareto categories is now where your analytical skill makes the difference.',
+    eli5:'80% of your SLA breaches come from 20% of root causes. Building Pareto charts manually takes time. Gemini + NotebookLM automate this: feed them your defect data, get the Pareto breakdown ranked by impact, with corrective actions mapped to each category.',
+    tech:'Automated Pareto with code interpreter: Upload CSV → "Run Pareto analysis on [defect_category] column. Generate ranked frequency table, calculate cumulative percentages, identify categories that account for 80% of occurrences, plot Pareto chart." Gemini writes and executes Python (pandas + matplotlib) inline and returns the chart.',
+    ops:'DMAIC Measure + Analyze automated. 2-hour analyst task → 2-minute prompt. Your role: define the right question, validate the output, make the call on corrective action. AI does the computation; you supply the operational judgment. This is what "augmented intelligence" means in practice.',
+       alt:[
+        'DETECTIVE ANALOGY: Sherlock Holmes does not say \'you have been in Afghanistan.\' He says: \'You have a tan line on your wrist but not your hand. Your posture is military. Your arm is held awkwardly — recent injury. Afghanistan or Iraq, given the tan.\' He shows his reasoning. Every conclusion is grounded in observable evidence. Chain-of-Thought forces AI to reason like Holmes, not like a magic 8-ball.',
+        'SURGICAL CHECKLIST ANALOGY: Atul Gawande\'s research showed that making surgeons explicitly tick through a pre-operation checklist — even for procedures they\'d performed thousands of times — reduced mortality by 47%. The checklist forced deliberate step-by-step processing where expertise normally compresses reasoning into unconscious pattern-matching. Chain-of-Thought is the checklist for AI reasoning.'
+       ]}
+  ]}
+ ]
+},
+{id:4,color:'#F59E0B',xp:500,
+ cover:['What is an AI Agent — 4 pillars (Perceive, Plan, Act, Reflect)','Multi-agent assembly lines & orchestration architectures','RAG foundations — vector databases & knowledge retrieval','Human-in-the-Loop (HITL) gates & approval workflows','Lovable & v0 by Vercel — vibe coding for Ops','Infinite loop prevention & triage engine design','MBA: Organizational Design — flat vs. hierarchical structures','MBA: Change Management (Kotter\'s 8 Steps)','MBA: Innovation & Entrepreneurship — MVP frameworks'],
+ bf:{title:'The Digital Assembly Line Simulation',scenario:'Prototype an Automated Escalation Triage Tool for Account Operations. When an agent enters a case description, the tool classifies it, suggests the resolution path, pulls the relevant SOP snippet, and logs the decision.',
+  brief:['Use v0 by Vercel to build the UI: text input for case description, output panel showing classification + resolution path + SOP snippet.','Write the system prompt that powers the classification and recommendation logic.','Define your Human-in-the-Loop gates: which case types ALWAYS require human review before action?','Describe the multi-agent architecture: which agent does what, in what sequence?','Identify the top 3 infinite loop risks and your prevention mechanisms for each.'],
+  scaffold:['HITL gates: any case with ARR >$10K, churn probability >80%, or legal flag = mandatory human review.','Multi-agent sequence: Classifier → Enrichment → SOP Retrieval → Draft Response → Quality Check → Route.','Infinite loop prevention: max iteration limit (N=3), state tracking (log each action taken), confidence threshold (<70% = auto-escalate to human).'],
+  sim:'I\'m your IT Security lead. Before we deploy this: where does customer data touch the AI model? What\'s your data handling protocol? Can you guarantee PII isn\'t being sent to a third-party API? You need to answer this before we can proceed.',
+       alt:[
+        'MEDICAL DIAGNOSIS ANALOGY: A good doctor does not prescribe paracetamol for every fever. They investigate: onset timing, associated symptoms, patient history, recent exposures. They form differential diagnoses. They run tests to eliminate possibilities. They arrive at a specific cause before prescribing a specific treatment. AI-automated 5 Whys is the diagnostic process that gets you to the specific cause, not just the symptom.',
+        'PLUMBER ANALOGY: When a pipe bursts, you can mop the floor indefinitely or find where the pipe is cracked and seal it. Every ops manager knows this. The challenge is that finding the crack takes time you don\'t have in the moment. AI-automated 5 Whys is the leak-detection equipment: it finds the crack fast enough that you can fix it before the next flood, rather than keeping better mops.'
+       ]},
+ weeks:[
+  {title:'Week 7 — Agents & Agentic Workflows',concepts:[
+   {t:'What is an AI Agent?',sub:'Day 1–2',
+    mba:'<strong>Framework: Principal-Agent Theory &amp; Organisational Authority</strong> — Jensen and Meckling\'s <a href="https://www.sciencedirect.com/science/article/pii/0304405X7690026X" target="_blank" rel="noopener">foundational paper on agency theory</a> (1976) describes how to ensure an agent acts in the principal\'s interest when the principal cannot perfectly observe the agent\'s actions. The three solutions map directly to AI agent governance: incentive alignment (reward function design), monitoring (observability infrastructure), and constraint (HITL gates and guardrails). Chester Barnard\'s <strong>zone of indifference</strong> — the range of decisions an employee will execute without requiring explicit authorisation — defines the boundary you must set for your AI agent: actions it can take autonomously, actions requiring confirmation, and actions requiring human decision-making. <strong>Designing this boundary is the most consequential architectural decision in agentic AI deployment.</strong> See <a href="https://www.anthropic.com/research" target="_blank" rel="noopener">Anthropic\'s alignment research</a> for the technical governance approach.',
+    eli5:'Regular AI: you ask, it answers, done. An agent: you give it a goal, it figures out the steps, uses tools (web search, code execution, email, databases), checks its own work, and keeps going until the goal is achieved — without you prompting each step. The difference between a single task instruction and a full job description.',
+    tech:'Agent = LLM + Memory + Tools + Planning loop. The 4 pillars: (1) Perceive — take in context (text, data, tool outputs). (2) Plan — break goal into subtasks (ReAct, CoT, or explicit planning). (3) Act — call tools (APIs, code interpreters, browsers, databases). (4) Reflect — evaluate output against goal, iterate or stop. Memory types: in-context (working memory), external (vector DB / RAG), episodic (conversation history).',
+    ops:'Agent = your fully autonomous Tier-1 agent. Perceives the ticket, looks up the account (CRM tool call), checks policy (RAG), drafts response, checks quality (self-reflection), resolves or escalates. HITL = your Quality gate. Agent handles volume; human handles exceptions and judgment calls.',
+       alt:[
+        'PANORAMIC VIEW ANALOGY: Traditional analysis is like looking at your operation through a keyhole — you can only see one thing at a time. Gemini Advanced with a 1M token context is like stepping back and seeing the entire operation simultaneously. The patterns that were invisible in the keyhole view — shrinkage peaks correlate with the same agents on the same shift pattern during the same product release cycles — become obvious at the panoramic scale.',
+        'CHESS GRANDMASTER ANALOGY: A grandmaster sees not just the current board position but the pattern of moves that produced it and the range that might follow. They hold the entire game in working memory. Gemini Advanced\'s 1M token context is the grandmaster view for your ops data: it holds the entire sequence — history, current state, and patterns that predict future states — simultaneously.'
+       ],
+       alt:[
+        'REFERENCE LIBRARIAN ANALOGY: The best reference librarians don\'t just know what\'s in the library — they find any specific piece of information across thousands of sources in under 5 minutes, with citations. NotebookLM is this librarian, but the library is your organisation\'s private knowledge base. Every answer comes with the exact source. The librarian never goes home.',
+        'ORACLE ANALOGY: Every organisation has an institutional oracle — the person who\'s been there longest and can answer any question about how things work and why. When that person leaves, the organisation loses years of knowledge overnight. NotebookLM is the process of encoding the oracle\'s knowledge before they leave: systematically uploading every document so the knowledge lives in the system, not just in one person\'s head.'
+       ]},
+   {t:'Multi-Agent Assembly Lines',sub:'Day 3',
+    mba:'<strong>Framework: Division of Labour &amp; Transaction Cost Economics</strong> — Adam Smith\'s <a href="https://www.econlib.org/library/Smith/smWN.html" target="_blank" rel="noopener"><em>Wealth of Nations</em> (1776)</a> showed specialisation in a pin factory increased output from 20 to 4,800 pins per worker per day — the foundational empirical case for division of labour. Oliver Williamson\'s <a href="https://www.nobelprize.org/prizes/economic-sciences/2009/williamson/facts/" target="_blank" rel="noopener">Transaction Cost Economics (Nobel 2009)</a> provides the design criterion: minimise total transaction costs (coordination overhead) plus production costs (task execution). Specialist agents reduce production costs through expertise; the orchestration layer adds transaction costs through coordination. Henry Mintzberg\'s five coordination mechanisms — mutual adjustment, direct supervision, standardisation of work/outputs/skills — all appear in multi-agent systems simultaneously: orchestrator = direct supervision; messaging protocols = standardisation of work. <a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai" target="_blank" rel="noopener">McKinsey estimates</a> multi-agent automation of knowledge work at $2.6-4.4 trillion in annual value across industries.',
+    eli5:'One agent is powerful. Multiple agents in sequence — like a production line — is transformative. Agent 1 ingests and classifies. Agent 2 researches and enriches. Agent 3 drafts output. Agent 4 quality-checks. Agent 5 routes. Each specialized. Together they handle what would take a full team.',
+    tech:'Multi-agent architectures: (1) Sequential (pipeline) — output of Agent A is input to Agent B. (2) Parallel — multiple agents run simultaneously on different subtasks, results merged. (3) Hierarchical — orchestrator agent decomposes goal and assigns to specialist agents. Frameworks: LangGraph, AutoGen, CrewAI. Key challenges: error propagation, infinite loops, context loss across handoffs.',
+    ops:'Multi-agent = your tiered support model, automated. Tier 1 agent handles volume. Tier 2 handles escalations. Orchestrator = routing engine. HITL gates = "Manager approval required" steps. This is your AI routing architecture at enterprise scale.',
+       alt:[
+        'TRIAGE ANALOGY: In a mass casualty event, medical triage does not treat every patient simultaneously. It rapidly classifies cases by survivability and resource requirement, directing intensive resources to cases where intervention makes the most difference. Pareto analysis is operational triage: classify defect causes by their share of total impact, direct your best resources to the vital few.',
+        'FISHING ANALOGY: You can cast one line and catch one fish at a time, or identify where the school is and drop a net there. Pareto analysis finds the school. Before the analysis, you\'re casting lines at random. After: your whole team\'s effort is concentrated at the 20% of the river where 80% of the fish are. This is not working harder. It is working at a completely different level of leverage.'
+       ]},
+   {t:'RAG Foundations & Human-in-the-Loop',sub:'Day 4–5',
+    mba:'<strong>Framework: Information Asymmetry &amp; Decision-Rights Allocation</strong> — George Akerlof\'s <a href="https://www.nobelprize.org/prizes/economic-sciences/2001/akerlof/lecture/" target="_blank" rel="noopener">Nobel Prize-winning work</a> (1970) on information asymmetry showed that when one party has information the other lacks, decision quality degrades. RAG is the engineering solution: the AI has access to the same authoritative, current knowledge as your best-informed human expert, retrieved on demand. HITL maps to corporate governance\'s <strong>approval authority matrix</strong>: decision rights should be held at the level combining best information with appropriate accountability. For high-consequence decisions (legal escalation, financial adjustment), that level is always human regardless of AI confidence scores. <a href="https://www.nist.gov/system/files/documents/2023/01/26/AI_RMF_1_0.pdf" target="_blank" rel="noopener">NIST AI RMF</a> (GOVERN 1.2) requires that "roles and responsibilities for AI risk management are documented and clearly communicated." HITL gates are the operational expression of this principle.',
+    eli5:'RAG = Retrieval-Augmented Generation. Instead of relying only on training data (stale, no access to your private data), RAG lets the AI look things up in real time from a database you control. Agent answering from memory vs. agent with live CRM access. Massive difference in accuracy.',
+    tech:'RAG pipeline: query → embedding (convert to vector) → similarity search in vector DB → retrieve top-k relevant chunks → inject into LLM context → generate grounded response. Vector DBs: Pinecone, Weaviate, pgvector. Hybrid RAG = keyword search + semantic search combined for higher recall.',
+    ops:'RAG = your agent\'s live knowledge base access. Without RAG: generic, stale answers. With RAG: answers from your current SOPs, policy docs, account history. HITL = mandatory approval gate for high-risk outputs (churn decisions, refunds above threshold, account terminations, legal cases).'}
+  ]},
+  {title:'Week 8 — Vibe Coding & App Building',concepts:[
+   {t:'Lovable & v0 — Building Without Code',sub:'Day 1–3',
+    mba:'<strong>Framework: Lean Startup — MVP Strategy &amp; Jobs-to-be-Done</strong> — Eric Ries\'s <a href="https://www.amazon.com/Lean-Startup-Entrepreneurs-Continuous-Innovation/dp/0307887898" target="_blank" rel="noopener"><em>The Lean Startup</em> (2011)</a> argued the Build-Measure-Learn loop should be compressed to its minimum viable cycle time. The historical constraint was always Build: prototyping required engineering resources, weeks, and real budget before any validation. <a href="https://lovable.dev" target="_blank" rel="noopener">Lovable</a> and <a href="https://v0.dev" target="_blank" rel="noopener">v0 by Vercel</a> eliminate this constraint — Build is now measured in hours. The constraint shifts to Measure and Learn: getting the prototype in front of real users and interpreting their behaviour accurately. Clayton Christensen\'s <a href="https://www.amazon.com/Innovators-Dilemma-Technologies-Management-Innovation/dp/1422196267" target="_blank" rel="noopener">jobs-to-be-done theory</a> adds the critical qualifier: build prototypes that test whether the AI tool does the job your team actually needs done, not the job you assume they need. The best prototypes are the ones that surprise you.',
+    eli5:'Lovable and v0 by Vercel: you describe the app you want in plain English and they generate fully functional code. Iterate by describing changes ("make the table sortable", "add a red alert when SLA is breached"). No prior coding required. Like briefing a developer who responds in 10 seconds without a Jira ticket.',
+    tech:'Lovable: full-stack app generation (React + Supabase backend). Describe UI + data requirements → generates production-ready code with database integration. v0 by Vercel: UI component generation (React + Tailwind). Publishes directly to Vercel hosting. Both use Claude/GPT-4 under the hood. Key skill: writing precise UI briefs (wireframe in words).',
+    ops:'Ops use cases: (1) Real-time shrinkage dashboard in Lovable — connects to Google Sheet, shows live agent attendance, flags outliers. (2) Churn risk triage form in v0 — agents fill it, AI scores risk, auto-populates your CRM. Previously: 6-week IT project. Now: 2-hour session.'},
+   {t:'Infinite Loop Prevention & Triage Engines',sub:'Day 4–5',
+    mba:'<strong>Framework: Systems Thinking &amp; Feedback Loop Dynamics</strong> — Peter Senge\'s <a href="https://www.amazon.com/Fifth-Discipline-Practice-Learning-Organization/dp/0385517254" target="_blank" rel="noopener"><em>The Fifth Discipline</em> (1990)</a> distinguished reinforcing feedback loops (positive feedback producing growth or collapse) from balancing feedback loops (negative feedback producing self-correction). Infinite loops in agentic systems are runaway reinforcing loops: ambiguous output → cannot resolve → routes back → same ambiguous output → repeat indefinitely. Prevention mechanisms are balancing loops — circuit breakers that interrupt the reinforcing cycle. <a href="https://www.coso.org/guidance-on-erm" target="_blank" rel="noopener">COSO ERM</a> requires that every material risk has an identified owner, defined tolerance threshold, detection mechanism, and response protocol. Infinite loop prevention operationalises this for agentic systems: the loop is the risk, the iteration counter is the threshold, state tracking is detection, and escalation to human is the response.',
+    eli5:'Nightmare scenario: two agents keep handing a task back to each other forever. Like a customer bouncing between Tier 1 and Tier 2 with no one owning the escalation. Triage engines = your escalation routing logic, built into the agent architecture from the start.',
+    tech:'Infinite loop prevention: (1) Max iteration limits (hard stop after N cycles). (2) State tracking — if same action attempted twice, break loop. (3) Confidence thresholds — below X%, route to human automatically. (4) Explicit "done" criteria — agent must confirm goal achievement against predefined success metrics before terminating.',
+    ops:'Your A2Q classifier is a triage engine. Controllable, Structural, Customer-Driven = your routing taxonomy. The classifier prevents agents from looping in the wrong queue. This is exactly the architecture you\'ve been building — the AI framing just makes it more formalizable and scalable across your entire operation.',
+       alt:[
+        'DELEGATION ANALOGY: The difference between asking an assistant to \'get me information on this topic\' and saying \'here is what I need to accomplish by Friday — handle it.\' The first requires you to specify every step. The second requires you to define the goal, the constraints, and the escalation criteria — and trust the assistant to navigate the steps. Building that trust requires starting with lower-stakes tasks and expanding autonomy as reliability is demonstrated.',
+        'SELF-DRIVING CAR ANALOGY: A GPS gives you directions — you still drive. A self-driving car takes the destination and drives itself, handling every decision without prompting. HITL gates are the \'supervised autonomy\' mode: the car handles everything except the situations it flags for human override. You define which situations those are.'
+       ]}
+  ]}
+ ]
+},
+{id:5,color:'#EC4899',xp:1000,
+ cover:['Data lineage, sovereignty & the enterprise AI firewall','Model drift monitoring — SPC applied to AI','Zapier AI for no-code workflow automation','Fireflies.ai for automated meeting intelligence','Total Cost of Ownership (TCO) & AI ROI modeling','Agile AI pilot framework & ADKAR change management','MBA: Corporate Strategy & portfolio management','MBA: Finance — NPV, IRR, and payback period for tech investments','MBA: Leadership — transformational vs. transactional','MBA: Federated learning & data governance strategy'],
+ bf:{title:'The AI Enterprise Operations Playbook',scenario:'Present to your Senior Leadership Team a comprehensive AI Transformation Roadmap for your Operations function over 12 months. This is your leadership audition.',
+  brief:['Executive Summary: 3 AI initiatives for your ops function over 12 months, with a business case for each.','Governance Framework: Data sovereignty, model drift management, and HITL requirements across all 3 initiatives.','TCO & ROI: 1-page financial model — cost, projected savings, NPV, and payback period for Initiative 1.','Change Management Plan: Drive adoption across your full ops team using the ADKAR model.','Risk Register: Top 5 AI deployment risks with likelihood, impact, mitigation, and owner.','Use Zapier AI to automate one workflow in your playbook. Use Fireflies.ai to document the stakeholder review meeting process.'],
+  scaffold:['Initiative 1 ROI = (time saved per ticket × volume × FTE cost) + (error reduction × cost per error). NPV = sum of discounted future savings minus upfront cost.','ADKAR: Awareness (why AI now), Desire (what\'s in it for agents), Knowledge (training plan), Ability (tool access + support), Reinforcement (recognition + metrics).','Risk #1: Model drift in your AI classifier — set control limits on classification accuracy, trigger retraining at <90%.','Governance: all PII-containing data must route through enterprise-tier AI endpoints (Anthropic Enterprise, Azure OpenAI) — never consumer-tier APIs.'],
+  sim:'Joe: "This is impressive. But I\'ve seen AI pilots die at scale-up. What\'s your single biggest risk and contingency?" Your VP adds: "What do you need from me specifically to move Initiative 1 to full deployment?"',
+       alt:[
+        'HOSPITAL ANALOGY: A hospital does not have one person who does the triage, takes the blood, reads the X-ray, makes the diagnosis, and prescribes the medication. It has specialists at each stage, passing the patient and the growing information about the patient from station to station. Multi-agent systems are the same specialisation economics applied to AI workflows.',
+        'RESTAURANT KITCHEN ANALOGY: A line kitchen has stations: prep, grill, sauce, plating, expeditor. Ingredients flow through stations in sequence. The expeditor coordinates timing. A multi-agent pipeline is the line kitchen for AI: each agent is a station, outputs flow to the next, and an orchestrator agent is the expeditor keeping the whole system in sync.'
+       ],
+       alt:[
+        'NAVIGATION ANALOGY: Before GPS, a ship\'s navigator used dead reckoning: calculating position from last known location using speed and heading. Accurate initially, drifting over time. RAG is GPS for AI: instead of reasoning from stale training data, the model looks up the current ground truth in real time. Dead reckoning is a model hallucinating policies. GPS is RAG retrieving the current policy document.',
+        'LEGAL COUNSEL ANALOGY: A good lawyer does not answer your question from memory. They go to the relevant statute, the relevant case law, and the relevant precedent — and they cite their sources. An AI without RAG answers like a lawyer giving off-the-cuff advice at a dinner party: plausible-sounding but potentially completely wrong. An AI with RAG answers like a lawyer who just reviewed the relevant documents.'
+       ]},
+ weeks:[
+  {title:'Week 9 — AI Governance & Risk',concepts:[
+   {t:'Data Lineage, Sovereignty & the Firewall',sub:'Day 1–2',
+    mba:'<strong>Framework: Corporate Governance &amp; Regulatory Compliance</strong> — Corporate governance historically focused on financial controls. AI requires an equivalent data governance framework across three major regimes. The <a href="https://gdpr-info.eu/" target="_blank" rel="noopener">EU GDPR</a> requires lawful basis for processing, data minimisation, and right to erasure — all with direct AI training implications. India\'s <a href="https://www.meity.gov.in/data-protection-framework" target="_blank" rel="noopener">DPDP Act (2023)</a> establishes data localisation and consent obligations. The <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EU AI Act (2024)</a> — the world\'s first comprehensive AI regulation — creates risk tiers with different compliance obligations. <strong>The board-level obligation:</strong> every AI deployment must document: what data it processes, where stored, who can access it, whether consent is documented, and the vendor\'s data processing policy. The CXO who cannot answer these questions cannot defend the deployment in a regulatory inquiry.',
+    eli5:'Data lineage = the audit trail for your data — where it came from, who touched it, where it went. Data sovereignty = which country\'s laws govern your data. The AI firewall = the wall between your private company data and the public AI model\'s training data.',
+    tech:'Data lineage: tracking provenance, transformations, usage. Tools: Apache Atlas, dbt, Collibra. Data sovereignty: GDPR (EU), DPDP Act (India), CCPA (California) — where data is stored, processed, and transferred matters legally. AI data risk: (1) Input leakage — PII in prompts sent to vendor APIs. (2) Training inclusion — vendors retraining on your data. (3) Model inversion attacks.',
+    ops:'Every customer record you put in a ChatGPT prompt potentially touches OpenAI\'s US servers — may violate your enterprise data agreements. Enterprise AI = Anthropic Enterprise, Azure OpenAI, or private deployment — same models, behind your firewall, zero data leaving your tenant. Your IT Security lead\'s concern in Phase 4 was exactly this.',
+       alt:[
+        '3D PRINTING ANALOGY: Before desktop 3D printing, manufacturing a prototype meant tooling, machining, lead times of weeks, costs of thousands. 3D printing did not replace manufacturing — it eliminated the cost barrier for the validation step before manufacturing investment. Lovable is 3D printing for software: it does not replace your engineering team for production systems, but it eliminates the cost and time barrier for the validation step.',
+        'DONE IS BETTER THAN PERFECT ANALOGY: The most common mistake in ops improvement is not starting because the solution isn\'t fully specified. The 80% solution that exists and is used beats the 100% solution still in the design phase. Lovable produces 80% solutions fast. Your agents use them. You learn what the last 20% should actually be — which is almost never what you thought when you were designing it from a desk.'
+       ]},
+   {t:'Model Drift & AI Process Control',sub:'Day 3–4',
+    mba:'<strong>Framework: Statistical Process Control — Shewhart &amp; Deming</strong> — Walter Shewhart developed the <a href="https://asq.org/quality-resources/control-chart" target="_blank" rel="noopener">control chart</a> at Bell Labs in the 1920s: plot the metric, calculate mean and standard deviation, set 3-sigma control limits, investigate any point outside limits. This framework applies without modification to AI model monitoring. Model accuracy rate = the process metric. Drift = assignable cause variation. Retraining trigger = the lower control limit. The difference: AI processes drift silently without physical signals, making automated monitoring more critical. <a href="https://www.nist.gov/system/files/documents/2023/01/26/AI_RMF_1_0.pdf" target="_blank" rel="noopener">NIST AI RMF</a> (MANAGE 4.1) requires monitoring AI systems for performance degradation in deployment. The <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EU AI Act</a> Article 72 mandates post-market monitoring plans for high-risk AI systems. Your model monitoring framework is a regulatory compliance requirement, not just operational best practice.',
+    eli5:'You deploy an AI classifier. Month 1: works great. Month 6: accuracy dropped from 94% to 78%. The world changed. New ticket types emerged. Customer language evolved. This is model drift — like a process calibrated in January being used in July without recalibration.',
+    tech:'Drift types: (1) Data drift — input distribution changes. (2) Concept drift — input-output relationship changes. (3) Label drift — labeling standards shifted. Detection: PSI (Population Stability Index), KS test. Monitoring: shadow mode (run new model alongside old, compare outputs), champion-challenger testing.',
+    ops:'Model drift monitoring = SPC for AI. Set control limits on accuracy metrics. Accuracy below lower control limit = trigger review. Retraining cadence = preventive maintenance schedule. Model version control = your change management log. This is your AI maintenance SOP.',
+       alt:[
+        'ELECTRICAL CIRCUIT ANALOGY: A circuit breaker exists because a short circuit will draw more current, which generates more heat, which draws more current — a runaway reinforcing loop that ends in fire. The circuit breaker does not prevent short circuits. It prevents a short circuit from becoming catastrophic by interrupting the loop. Your loop prevention mechanisms ARE circuit breakers: they prevent an unresolvable situation from consuming unlimited resources.',
+        'CUSTOMER ON HOLD ANALOGY: You designed your IVR so that if a customer presses 0, they go to a menu. If they press 0 again from that menu, they go back to the first menu. A customer can be trapped indefinitely pressing 0. Every agentic system without explicit loop prevention is this IVR: sophisticated, well-intentioned, and capable of trapping a task in an infinite cycle that no one monitors.'
+       ]},
+   {t:'Zapier AI & Fireflies — The Automation Layer',sub:'Day 5',
+    mba:'<strong>Framework: Business Process Reengineering &amp; Automation ROI</strong> — Hammer and Champy\'s <a href="https://www.amazon.com/Reengineering-Corporation-Manifesto-Business-Revolution/dp/0066621127" target="_blank" rel="noopener"><em>Reengineering the Corporation</em> (1993)</a> distinguished process improvement (incremental optimisation) from process redesign (fundamentally rethinking what the process exists to do). The question for automation is not \'how do we automate this step?\' but \'if this process were designed today with AI, would this step exist at all?\' <a href="https://zapier.com/ai" target="_blank" rel="noopener">Zapier AI</a> and <a href="https://fireflies.ai" target="_blank" rel="noopener">Fireflies.ai</a> enable process redesign without engineering resources. <strong>ROI framework:</strong> McKinsey\'s automation ROI calculates value as (time freed × fully-loaded hourly rate × annual volume) + (error reduction × cost per error). For administrative workflows, typical savings range from 2-8 hours per week per manager. At scale across a 10-manager team: 20-80 hours per week redirected from administration to judgment. Every automated handoff also reduces the information loss and delay that occurs during manual transfer — the hidden cost most ROI calculations miss.',
+    eli5:'Zapier AI: the plumbing that connects all your tools. Slack triggers an email triggers a Salesforce update triggers a Google Sheet entry — all automatically. Fireflies.ai: sits in every meeting, transcribes everything, extracts action items, and pushes them to your project management tool.',
+    tech:'Zapier AI: natural language Zap creation (describe workflow → AI builds it). AI-powered routing for ambiguous triggers. 6000+ app integrations. Fireflies: real-time transcription, speaker diarization, topic detection, automated action item extraction, CRM/PM tool push. API-first: Salesforce, HubSpot, Notion, Asana.',
+    ops:'Zapier AI = your no-code integration layer. Every manual handoff in your ops process becomes a Zap. Fireflies = automated MoM for every standup, 1:1, QBR. Never manually write meeting notes again. Action items auto-populate your task management tool. Net time saving for a team of 6 managers: ~4 hours/week.'}
+  ]},
+  {title:'Week 10 — TCO, ROI & Leadership',concepts:[
+   {t:'Total Cost of Ownership & AI ROI',sub:'Day 1–2',
+    mba:'<strong>Framework: Corporate Finance — NPV, IRR &amp; Discounted Cash Flow</strong> — The standard framework for evaluating capital investments requires three calculations. <strong>NPV</strong>: sum of expected future cash flows discounted at your cost of capital (WACC), minus upfront investment. Positive NPV = value created. <strong>IRR</strong>: the discount rate at which NPV = 0 — your effective annual return, directly comparable to cost of capital. <strong>Payback period</strong>: time until cumulative savings equal initial investment — the liquidity risk measure. Present all three to a finance-literate executive. Presenting only one signals the others are unfavourable. <strong>For AI investments specifically:</strong> capture second-order value that standard ROI models miss — capacity expansion (same headcount handles higher volume, avoiding future hiring costs) and strategic optionality (AI capability enables product innovations not yet quantifiable). <a href="https://www.gartner.com/en/articles/what-is-ai-roi" target="_blank" rel="noopener">Gartner\'s AI ROI framework</a> provides a structured template for capturing all four value streams.',
+    eli5:'CFO question: "We\'re spending $X on AI tools. What are we getting back?" TCO = not just subscription cost, but implementation time, training, maintenance, error remediation, and opportunity cost of the old way. ROI = (value created — TCO) / TCO. A pilot that saves 2 hours per agent per day across 66 agents = 132 hours/day = significant number.',
+    tech:'AI ROI framework: (1) Efficiency gains: task time reduction × volume × FTE cost. (2) Quality improvement: error rate reduction × cost per error. (3) Capacity expansion: same headcount handles N% more volume. (4) Revenue protection: churn prevention × average ARR. TCO: licensing + implementation + training + maintenance + governance overhead.',
+    ops:'AI Classifier ROI: measure pre vs. post pilot time-to-route × ticket volume × agent cost per minute = efficiency gain. Add reduction in mis-routed tickets (wrong queue AHT + transfer time + CX degradation) = quality gain. Add churn prevention rate × ARR at risk = revenue protection. Present all three pillars to your leadership team.'},
+   {t:'Agile AI Pilot Framework & Change Management',sub:'Day 3–5',
+    mba:'<strong>Framework: Kotter\'s 8-Step Change Model &amp; ADKAR</strong> — John Kotter\'s <a href="https://www.kotterinc.com/methodology/8-steps/" target="_blank" rel="noopener">8-Step Change Model</a> (<em>Leading Change</em>, 1996) remains the most empirically validated framework for large-scale organisational transformation. Critical insight from Kotter\'s research: AI deployments fail not because the technology doesn\'t work — most pilots do work as specified. They fail because Steps 1-5 were skipped: no urgency created around the problem, no coalition built, no structural barriers removed. Prosci\'s <a href="https://www.prosci.com/methodology/adkar" target="_blank" rel="noopener">ADKAR model</a> addresses this at the individual level: Awareness (why is this change happening?), Desire (what\'s in it for me?), Knowledge (how do I do it?), Ability (I can demonstrate it), Reinforcement (what keeps me using it?). <strong>The ADKAR failure mode for AI:</strong> Desire is almost always the blocker. People know about the tool but fear it replaces their judgment. The intervention: demonstrate precisely which tasks AI removes from their workload, not which jobs it eliminates.',
+    eli5:'Rolling out AI to 66 agents isn\'t a waterfall project. It\'s a series of small experiments: pilot with 5 agents, measure, learn, adjust, expand to 20, measure again, full rollout. Change management question: how do you get 66 agents to trust a tool that feels like it might replace them?',
+    tech:'AI pilot framework: (1) Define hypothesis (if we deploy X, Y metric will improve by Z%). (2) Control group design. (3) Minimum viable pilot (smallest test that validates the hypothesis). (4) Measurement plan (leading + lagging indicators). (5) Rollback criteria. Change management: ADKAR (Awareness, Desire, Knowledge, Ability, Reinforcement). Key insight: frame AI as "removing the worst parts of your job."',
+    ops:'Formalizing a pilot: small group, controlled dates, weekly measurement, cadencece, clear success metrics. You\'ve already been running an enterprise-grade AI pilot. The capstone formalizes it into a replicable playbook that you can present as your Associate Director value proposition.',
+       alt:[
+        'BANK VAULT ANALOGY: You would not store your customers\' account details in a public filing cabinet in the lobby. Enterprise AI is the vault equivalent: the same model capabilities as consumer AI, but within a controlled perimeter where you know exactly who accessed what data and when. Consumer AI tools are the filing cabinet. Treat them accordingly.',
+        'SUPPLY CHAIN PROVENANCE ANALOGY: Responsible sourcing requires knowing where every component came from, who made it, and under what conditions. Data lineage is supply chain provenance for information: you need to know where every data element in your AI system came from, what transformations it went through, and what decisions it influenced. Without lineage, you cannot answer a regulator\'s question.'
+       ]}
+  ]}
+ ]
+},
+{id:6,color:'#00D4FF',xp:750,
+ cover:['The 5 Layers of Agentic AI — GPT to Agentic Infra','ReAct, Chain-of-Thought, and Tree of Thoughts in depth','State Management, Multi-Step Tool Chaining, Safe Interruptibility','Multi-Agent RAG, Hierarchical Planning, Emergent Behavior Control','Observability, Monitoring & Logging for AI systems','Compliance — GDPR, HIPAA, AI Act, Fairness & Bias Controls','8-Step Agent Builder Framework — Purpose to Evals','MBA: Platform Business Models & network effects','MBA: Innovation Management — disruptive vs. sustaining','MBA: Culture of Innovation & organizational learning'],
+ bf:{title:'Build Your Agent Blueprint',scenario:'Your team has been asked to stand up an AI Agent for the Account Recovery sub-team. The agent must handle incoming dispute cases end-to-end: classify severity, look up account history, draft a resolution path, and escalate P0s to a human. Design the full agent architecture before a single line of code is written.',
+  brief:['Define Purpose & Scope: the agent\'s goal, who it serves, what success looks like. Define 3 use cases and 2 explicit out-of-scope scenarios.','System Prompt Design: write the Role, Goals, Instructions, and Guardrails using the 4-part framework.','Choose your LLM: justify your model choice (Claude, GPT-4o, Gemini) against 4 criteria: capability, context window, cost/latency, compliance.','Design the Memory System: which memory type does each task require? (Episodic / Working / Vector DB / SQL / File Storage)','Map the 5-Layer stack: where does your agent sit across GPT → LLMs → AI Agents → Agentic Systems → Agentic Infra?','Define your Observability plan: what do you log? How do you detect failure? What triggers a human escalation?'],
+  scaffold:['Layer 1 (GPT/LLM): your base model. Layer 3 (AI Agent): the ReAct loop. Layer 4 (Agentic System): multi-agent coordination if needed. Layer 5 (Infra): hosting, scaling, compliance.','Memory: Episodic = conversation history. Working = current case context. Vector DB = SOP/policy lookup. SQL = structured account data. File = document attachments.','Observability non-negotiables: log every tool call, every LLM output, every escalation. Alert on: latency >5s, confidence <70%, any PII detected in output.','Safe interruptibility = your agent must be stoppable at any step without corrupting state. Design for this from the start.'],
+  sim:'I\'m your CTO. You want to deploy an AI agent that touches live customer accounts. Walk me through your fail-safe design. What happens if the agent takes a wrong action on a high-value account? How do I know it won\'t happen again?',
+       alt:[
+        'SCALES CALIBRATION ANALOGY: Precision scales used in manufacturing require regular calibration against known reference weights. If the scales drift by 0.1 grams, every measurement they produce is systematically wrong — but the error is invisible unless you check against the reference. Model monitoring is scales calibration for AI: regularly check accuracy against a ground-truth reference set to detect systematic drift before it corrupts every output.',
+        'ANNUAL MEDICAL CHECK-UP ANALOGY: You do not wait until you have symptoms to have a blood test. Regular screening catches changes in biomarkers before they become acute. Model monitoring is the annual check-up: scheduled, systematic, against defined reference ranges. The point is to catch declining accuracy at 92% and address it — not at 74% when the ops impact is already significant.'
+       ],
+       alt:[
+        'IRRIGATION ANALOGY: A farmer who hand-waters each crop spends most of their time on a task that adds zero strategic value. An irrigation system does the same task automatically, freeing the farmer to make decisions about what to grow, when to harvest, and how to price. Zapier AI is irrigation for your information flows: it removes the hand-watering task from your team\'s cognitive load so they can do the work that requires human judgment.',
+        'CONVEYOR BELT ANALOGY: Before conveyor belts, workers carried parts from station to station. Part movement added no value — pure transport waste (one of Ohno\'s seven wastes in Lean). The conveyor belt automated transport so workers could focus on the value-adding transformation at their station. Zapier automates your information transport so your team focuses on decisions, not moving data.'
+       ]},
+ weeks:[
+  {title:'The 5 Layers of Agentic AI',concepts:[
+   {t:'Layers 1–2: GPT → LLMs (The Engine Room)',sub:'Foundation',
+    mba:'<strong>Framework: Platform Strategy &amp; Network Effects</strong> — Parker, Van Alstyne, and Choudary\'s <a href="https://www.amazon.com/Platform-Revolution-Networked-Markets-Transforming/dp/0393354350" target="_blank" rel="noopener"><em>Platform Revolution</em> (2016)</a> argues the most valuable digital economy businesses are platforms — they enable others to create value on top of them. LLMs are platforms: <a href="https://openai.com" target="_blank" rel="noopener">OpenAI</a>, <a href="https://anthropic.com" target="_blank" rel="noopener">Anthropic</a>, <a href="https://deepmind.google" target="_blank" rel="noopener">Google DeepMind</a> are platform providers. Your competitive advantage is not in the platform — commodity LLMs are available to everyone at the same cost. Your advantage is in what you build on top: the specificity of your prompts, the quality of your proprietary data, the design of your workflows. Andrej Karpathy calls this <a href="https://karpathy.github.io/2022/03/14/lecun1989/" target="_blank" rel="noopener">Software 2.0</a>: instead of writing explicit rules, you curate data and let the model learn the rules. The data curation is your moat.',
+    eli5:'The innermost circle. GPT and LLMs are the brain — they read text, generate text, reason. Everything else is built on top. ChatGPT is a UI wrapper around GPT-4. Claude is Anthropic\'s LLM. These are the engines. Alone, they\'re powerful but passive — they only respond when asked. Agents make them proactive.',
+    tech:'GPT layer: specific model implementations (GPT-4o, Claude 3.5, Gemini 1.5). LLM layer: tokenization, inference parameters (temperature, top-p, top-k), context engineering, prompt engineering, RAG integration, fine-tuning & adaptation, voice interfaces, memory retrieval. This is where model selection, cost optimization, and latency tuning happen.',
+    ops:'LLM layer = your contact centre telephony platform. It\'s the infrastructure every agent interaction runs on. You configure it: which model (which "phone system"), what parameters (call routing rules), what memory (CRM integration). Get this layer wrong and everything above it underperforms.',
+       alt:[
+        'MAKE-OR-BUY ANALOGY: Every AI investment is a build vs. buy decision reframed as time vs. money. You can have your team spend 3 hours on manual analysis that AI could do in 3 minutes — you are effectively paying a premium salary to avoid a monthly tool subscription. The ROI calculation makes this trade explicit and removes the subjective \'it\'s not in the budget\' conversation.',
+        'OPPORTUNITY COST ANALOGY: The most underestimated cost in AI ROI is the opportunity cost of NOT automating. Every hour your senior analysts spend pulling data and building charts is an hour not spent on analysis that drives business outcomes. The ROI of automation includes not just the time saved on the automated task, but the value of the better work that time could have gone to.'
+       ]},
+   {t:'Layer 3: AI Agents (The Autonomous Worker)',sub:'Autonomy',
+    mba:'<strong>Framework: Principal-Agent Theory &amp; Zone of Indifference</strong> — The principal-agent problem formalised by <a href="https://www.sciencedirect.com/science/article/pii/0304405X7690026X" target="_blank" rel="noopener">Jensen and Meckling (1976)</a> is the oldest challenge in management theory, now running on AI infrastructure. The three solutions: incentive alignment (reward function design), monitoring (observability infrastructure), constraint (HITL gates and guardrails). Chester Barnard\'s zone of indifference — the range of decisions an employee executes without explicit authorisation — defines the boundary for AI agents: autonomous actions, confirmation-required actions, human-decision-only actions. Russ Ackoff\'s systems thinking adds a critical nuance: an agent optimising its own objective function may produce outputs that are locally optimal but globally counterproductive — the alignment problem in practice. See <a href="https://www.anthropic.com/research/measuring-progress-on-scalable-oversight-for-large-language-models" target="_blank" rel="noopener">Anthropic\'s scalable oversight research</a> for the technical depth.',
+    eli5:'Add a planning loop to an LLM and you get an agent. The agent doesn\'t just answer — it decides what to do next, calls a tool, checks the result, and decides again. ReAct = Reason + Act. Chain-of-Thought = show your working. Tree of Thoughts = explore multiple paths before committing. These are the thinking patterns agents use.',
+    tech:'AI Agent capabilities: Task Planning & Decomposition, Agent Reasoning (ReAct/CoT/ToT), Tokenization & Inference Parameters, Prompt Engineering, Context Engineering, State Management (tracking progress across multi-step tasks), Multi-Step Tool Chaining (call tool A → use result to call tool B), Safe Interruptibility (agent can be paused cleanly at any step), Long-Term Memory (persist state across sessions), Fail-Safe Design (graceful degradation when tools fail).',
+    ops:'Agent layer = your senior Tier-2 who doesn\'t just answer tickets — they diagnose, look things up, draft responses, check policy, escalate. Safe interruptibility = your escalation path. Fail-safe design = your backup SOP when the system is down. State management = your case note discipline: every step documented so anyone can pick up the case.',
+       alt:[
+        'VACCINE ADOPTION ANALOGY: The COVID vaccine was scientifically effective. Adoption varied enormously — not because of the science but because of trust, communication, and accessibility. The vaccine that exists but is not taken creates no population immunity. The AI tool deployed but not used creates no operational ROI. Both are the same problem: technology adoption is a human behaviour problem, not a technology problem.',
+        'SEAT BELT ANALOGY: Seat belts were invented in 1959. Mandatory use laws were not widely adopted until the 1980s. Seat belt use reached 90% only after enforcement, advertising campaigns, and social normalisation — 20 years after the technology was available. AI adoption will follow the same curve without active intervention. ADKAR compresses that curve from years to months.'
+       ]},
+   {t:'Layer 4: Agentic Systems (The Multi-Agent Floor)',sub:'Coordination',
+    mba:'<strong>Framework: Mintzberg\'s Configurations &amp; Transaction Cost Economics</strong> — Henry Mintzberg\'s <a href="https://www.amazon.com/Structure-Fives-Designing-Effective-Organizations/dp/013855479X" target="_blank" rel="noopener"><em>Structure in Fives</em> (1983)</a> identified five organisational configurations from highly centralised (machine bureaucracy) to decentralised expert networks (professional bureaucracy). Multi-agent architectures mirror this spectrum. Oliver Williamson\'s <a href="https://www.nobelprize.org/prizes/economic-sciences/2009/williamson/facts/" target="_blank" rel="noopener">Transaction Cost Economics (Nobel 2009)</a> provides the design criterion: minimise total transaction costs (coordination overhead) + production costs (task execution). Specialist agents reduce production costs; orchestration adds transaction costs. Optimal design minimises the sum. The implementation frameworks — <a href="https://www.langchain.com" target="_blank" rel="noopener">LangChain</a>, <a href="https://www.langchain.com/langgraph" target="_blank" rel="noopener">LangGraph</a>, <a href="https://www.microsoft.com/en-us/research/project/autogen/" target="_blank" rel="noopener">AutoGen</a> — each implement a different point on this spectrum. Choose based on your coordination cost tolerance, not GitHub stars.',
+    eli5:'One agent is powerful. Multiple agents coordinating is an agentic system. They share knowledge, pass tasks, work in parallel — like a well-run ops floor where specialists handle different parts of the same case. Orchestration = the team lead who assigns tasks. Messaging protocols = the communication channel between agents.',
+    tech:'Agentic Systems capabilities: Multi-Agent RAG & Knowledge Sharing (shared knowledge base), Routing, Scheduling & Coordination (orchestrator assigns to specialist agents), Messaging Protocols (structured JSON / function calls), Inter-Agent Communication (direct handoffs), Hierarchical Planning (orchestrator → sub-agents → micro-agents), Error Handling & Resilience (retry logic, fallback paths), Emergent Behavior Analysis & Control (detecting unexpected patterns across multi-agent pipelines).',
+    ops:'Agentic Systems = your multi-tier support model. Orchestrator = your routing engine (A2Q classifier at enterprise scale). Hierarchical planning = your escalation matrix (Tier 1 → Tier 2 → Manager → Legal). Error handling = your fallback SOP. Emergent behavior control = your QA process for detecting when the pipeline produces unexpected outputs.'},
+   {t:'Layer 5: Agentic Infrastructure (The Enterprise Foundation)',sub:'Scale & Compliance',
+    mba:'<strong>Framework: COSO ERM &amp; AI Governance Regulation</strong> — The <a href="https://www.coso.org/guidance-on-erm" target="_blank" rel="noopener">COSO ERM framework (2017)</a> maps directly to Agentic Infrastructure: observability and logging = information and communication; security and access control = governance and culture; compliance frameworks = regulatory risk response; fairness monitoring = ethical risk in performance; scaling = operational risk management. <strong>The regulatory landscape:</strong> the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EU AI Act</a> Article 9 mandates risk management systems for high-risk AI. <a href="https://www.nist.gov/system/files/documents/2023/01/26/AI_RMF_1_0.pdf" target="_blank" rel="noopener">NIST AI RMF</a> MAP function requires deployment context documentation. ISO/IEC 42001:2023 is the first international AI management system standard. <strong>The bottom line:</strong> deploying AI agents without Layer 5 is deploying without an ERM framework — acceptable for a proof-of-concept, professionally indefensible for production at enterprise scale.',
+    eli5:'The outermost ring. Everything that makes agents safe, compliant, and scalable at enterprise level. Security controls, compliance frameworks (GDPR, HIPAA, AI Act), resource scaling, observability dashboards, bias controls. You can\'t see it in the product, but without it, you can\'t safely deploy at enterprise scale.',
+    tech:'Agentic Infra capabilities: Observability, Monitoring & Logging (every agent action logged, dashboards for latency/accuracy/cost), Security, Privacy & Access Control (data encryption, role-based access, PII detection), Resource Scaling — Horizontal/Vertical (spin up more instances under load), Compliance & Governance (GDPR, HIPAA, AI Act alignment), Fairness, Bias & Ethical Controls (detect and mitigate discriminatory outputs). Tools: LangSmith (observability), Guardrails AI (output validation), AWS Bedrock / Azure AI (managed infra).',
+    ops:'Agentic Infra = your IT Security + Compliance + WFM layers combined. Observability = your real-time ops dashboard — but for AI. Scaling = your BCP for peak volume. Compliance = your DPA requirements made technical. Bias controls = your equal treatment policy, enforced programmatically. This is the layer your IT Security lead was asking about in Phase 4.',
+       alt:[
+        'SUPPLY CHAIN ANALOGY: The LLM is a commodity input — like electricity or steel. Your competitive advantage is not in generating your own electricity. It is in what you manufacture with it, more efficiently and with better quality than your competitors. Companies that try to build and train their own LLMs from scratch are building their own power station: technically possible, astronomically expensive, and unnecessary when commodity power is available.',
+        'OPERATING SYSTEM ANALOGY: The LLM is the operating system. Your agent is the application. Nobody building a mobile app writes their own operating system. Similarly, nobody building an ops agent should train a foundation model from scratch. The value is in the application layer: the specificity of your prompts, the quality of your data, the design of your workflows.'
+       ]}
+  ]},
+  {title:'8-Step Agent Builder Framework',concepts:[
+   {t:'Steps 1–3: Define → System Prompt → Choose LLM',sub:'Design Phase',
+    mba:'<strong>Framework: McKinsey Problem-Solving &amp; Strategic Framing</strong> — McKinsey\'s methodology begins: \'What decision needs to be made, by whom, by when, and what information would change that decision?\' This prevents building elaborate analyses that answer the wrong question. The <a href="https://www.minto.com/pyramid-principle/" target="_blank" rel="noopener">Minto Pyramid Principle</a> adds communication discipline: conclusion first, arguments second, data third. Steps 1-3 of the agent builder apply this to AI design: Step 1 (Purpose and Scope) = McKinsey problem definition; Step 2 (System Prompt) = the Minto-structured brief for the AI; Step 3 (LLM selection) = vendor evaluation. <strong>The most expensive mistake in AI deployment</strong> is building the right solution to the wrong problem — always made in Steps 1-3, never in Steps 4-8. See <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Anthropic\'s prompt engineering guide</a> for Step 2 implementation.',
+    eli5:'Before you build anything: Step 1 — what does the agent need to accomplish, for whom, measured how? Step 2 — write the agent\'s SOP (system prompt): its role, persona, goals, instructions, guardrails. Step 3 — choose which brain it runs on (GPT-4o, Claude, Gemini) based on what the task needs.',
+    tech:'Step 1 (Purpose & Scope): use case definition, user needs mapping, success criteria (accuracy, latency, cost), explicit constraints and out-of-scope scenarios. Step 2 (System Prompt Design): Role/Persona + Goals + Instructions (step-by-step) + Guardrails (explicit "never do" list). Step 3 (LLM Selection): evaluate on base capability, context window, cost per token, latency, compliance certifications. Claude 3.5 Sonnet for balanced tasks; GPT-4o for tool-heavy workflows; Gemini 1.5 Pro for long-context document analysis.',
+    ops:'Step 1 = your project charter. Step 2 = your agent SOP — same structure as your human agent SOP but for an AI. Step 3 = your vendor selection matrix. Evaluate LLMs like any vendor: capability, cost, SLA, compliance. Don\'t pick GPT-4o because it\'s famous — pick it because it scores highest on your weighted criteria.',
+       alt:[
+        'CHESS ENGINE ANALOGY: A chess engine does not simply retrieve the best move from a database. It evaluates the current position, generates candidate moves, simulates the consequences of each move several steps forward, evaluates the resulting positions, and selects the move that leads to the best expected outcome. The ReAct loop in an AI agent is this same process applied to real-world tasks.',
+        'EXPEDITION ANALOGY: An expedition leader does not follow a fixed script. They have a destination, a plan, tools, and judgment — the ability to adapt when the plan meets reality. When the planned route is blocked, they assess, adapt, and find an alternative. AI agents operate the same way: goal-directed, plan-executing, result-evaluating, plan-updating. The sophistication is knowing when to revise the plan.'
+       ]},
+   {t:'Steps 4–5: Tools & Memory Systems',sub:'Integration Phase',
+    mba:'<strong>Framework: Information Systems Strategy — Systems of Record, Engagement &amp; Intelligence</strong> — Geoffrey Moore\'s IS categorisation: Systems of Record (CRM, ERP — authoritative data), Systems of Engagement (ticketing, communication), Systems of Intelligence (BI tools, AI models). Tools give the agent access to all three layers simultaneously. <a href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener">Anthropic\'s Model Context Protocol (MCP)</a> provides a standardised, open-source framework for governing tool access in AI agents. <strong>The governance principle:</strong> apply the principle of least privilege — each agent should have access to exactly the tools required for its specified function, nothing more. Every write-access tool requires a higher governance tier than read-only tools.',
+    eli5:'Step 4 — what can the agent reach out and use? (Web, APIs, databases, other AI tools.) Step 5 — what does it remember? (The current conversation, long-term knowledge, structured data.) Memory is what makes an agent feel intelligent across a full interaction instead of losing context after each reply.',
+    tech:'Step 4 (Tools): Simple local functions, API integrations (web, apps, data sources), MCP servers (Model Context Protocol — standardized tool access), AI agent as a tool (sub-agents), custom functions. Step 5 (Memory Types): Episodic/Conversation = in-context, auto-cleared; Working = scratchpad for current task; Vector/Semantic DB = RAG-based knowledge retrieval; SQL/Structured DB = account data, transaction history; File Storage = documents, attachments. Rule: use the least persistent memory type that meets the requirement.',
+    ops:'Tools = your agent\'s system access rights. Just like you define what screens a Tier-1 vs. Tier-2 agent can see — you define what tools each AI agent can call. Memory = your knowledge management architecture. Episodic = case notes (cleared after resolution). Vector DB = your knowledge base (SOPs, policy docs). SQL = your CRM/billing system.',
+       alt:[
+        'SUPPLY CHAIN COORDINATION ANALOGY: A multi-agent pipeline is a just-in-time supply chain for information processing. Each agent is a station. Each station receives a work-in-progress input, performs a specific transformation, and passes the output to the next station. The orchestrator is the production scheduler. The performance of the system depends on the quality of each station and the efficiency of the handoffs.',
+        'AIR TRAFFIC CONTROL ANALOGY: An air traffic controller does not fly the planes. They maintain awareness of the full airspace, coordinate the sequencing and routing of multiple flights simultaneously, issue instructions to each flight at the right moment, and escalate anomalies. The orchestrator agent in a multi-agent system is the air traffic controller: it sequences and coordinates the agents that do the work.'
+       ]},
+   {t:'Steps 6–8: Orchestration → UI → Testing & Evals',sub:'Deploy & Validate Phase',
+    mba:'<strong>Framework: PDCA, Agile Inspection &amp; Continuous Improvement</strong> — Deming\'s <a href="https://asq.org/quality-resources/pdca-cycle" target="_blank" rel="noopener">PDCA cycle</a>, the scientific method, and Agile\'s <a href="https://agilemanifesto.org/principles.html" target="_blank" rel="noopener">inspect-and-adapt principle</a> all converge: you learn more from running experiments and measuring outcomes than from planning. <strong>The eval framework is the most strategically important:</strong> organisations that build rigorous evaluation systems create a compound advantage. The <a href="https://docs.anthropic.com/en/docs/test-and-evaluate/eval-using-human-feedback" target="_blank" rel="noopener">Anthropic evals guide</a> provides the practical framework. <a href="https://www.langchain.com/langsmith" target="_blank" rel="noopener">LangSmith</a> is the production observability tool. Deploy only after testing on representative production-like cases with a Definition of Done that includes accuracy metrics and latency SLAs.',
+    eli5:'Step 6 — how does the agent decide what to do when? (Routing, triggers, message queues, error handling.) Step 7 — how does the human interact with it? (Chat, web app, API endpoint, Slack bot.) Step 8 — how do you know it\'s working? (Unit tests, latency benchmarks, quality metrics, continuous improvement.)',
+    tech:'Step 6 (Orchestration): Routes/Workflows (conditional logic), Triggers (what initiates the agent), Parameters (dynamic inputs), Message Queues (async task management), Agent2Agent (handoff protocols), Error Handling (retry logic, fallback paths). Step 7 (UI): Chat interface, Web app, API endpoint, Slack/Discord bot. Step 8 (Testing & Evals): Unit tests (per tool/function), Latency testing (P50/P95/P99), Quality metrics (accuracy, hallucination rate, user satisfaction), Iterate & Improve (eval-driven prompt optimization).',
+    ops:'Orchestration = your routing rules engine + escalation matrix + BCP, all in one. Step 8 = your QA framework for AI. Latency P95 = your SLA. Quality metrics = your CSAT + FCR equivalent. Iterate & Improve = your DMAIC loop applied to AI performance. This step never completes — it is your ongoing Improve phase.',
+       alt:[
+        'BRIDGE ENGINEERING ANALOGY: A bridge that looks beautiful in the architect\'s render can fail in production if the structural engineering is inadequate. The structural engineering — the load calculations, the materials specifications, the foundation design — is completely invisible to the person driving over it. But it is the reason they can drive over it safely. Layer 5 is the structural engineering of your AI system.',
+        'NUCLEAR POWER ANALOGY: A nuclear reactor produces enormous clean energy. But the safety systems, containment structures, monitoring equipment, and operator training are what make it safe to operate near a population. The reactor without the safety infrastructure is not a power source — it is a liability. Agentic AI at enterprise scale is the same: the intelligence gains are real, but only achievable safely with the full infrastructure layer in place.'
+       ]}
+  ]}
+ ]
+}
+];
+
+//  ENGINE 
+let xp=0,completedPhases=new Set(),activePhase=null,activeBossPhase=1;
+const TOTAL=3750;
+const LSKEY='aimc_lb_v2';
+const RANKS=[
+  {min:0,r:' Operations Supervisor'},{min:500,r:' Quality Inspector'},
+  {min:1000,r:' Process Engineer'},{min:1500,r:' Six Sigma Black Belt'},
+  {min:2000,r:' Automation Architect'},{min:2500,r:' AI Strategy Director'},
+  {min:3500,r:' Agentic Systems Architect'}
+];
+function getRank(x){let r=RANKS[0].r;for(const e of RANKS){if(x>=e.min)r=e.r;}return r;}
+function updateXP(){
+  const p=Math.min(100,(xp/TOTAL)*100);
+  document.getElementById('xpf').style.width=p+'%';
+  document.getElementById('xpc').textContent=xp+' / '+TOTAL+' XP';
+  document.getElementById('lvl').textContent=Math.floor(xp/500)+1;
+  document.getElementById('xpr').textContent=getRank(xp);
+}
+function flashXP(n){
+  const e=document.getElementById('xpfl');
+  e.textContent='+'+n+' XP ';e.classList.add('show');
+  setTimeout(()=>e.classList.remove('show'),2000);
+}
+function unlockTools(pid){
+  const chips=document.querySelectorAll('.tc');
+  const n=pid*2;
+  chips.forEach((c,i)=>{if(i<n)c.classList.add('on');});
+}
+// player
+let playerName='';
+function enroll(){
+  const inp=document.getElementById('nameIn');
+  const n=inp.value.trim();
+  if(!n){inp.style.outline='2px solid #FF4C00';inp.focus();return;,
+       alt:[
+        'ARCHITECT\'S BRIEF ANALOGY: An architect who builds without a complete client brief wastes materials, time, and money producing something the client did not want. Every ambiguity in the brief becomes a dispute during construction. Steps 1-3 of the agent builder are the architect\'s brief: complete the brief before picking up any tools.',
+        'SURGICAL PLANNING ANALOGY: A surgical team does not begin an operation without a complete pre-operative plan: the procedure, the patient\'s condition, the instruments required, the contingencies for complications. Improvising in the operating theatre costs lives. Improvising in AI deployment costs credibility, time, and sometimes data. Plan completely before you build.'
+       ]}
+  inp.style.outline='none';
+  playerName=n;
+  saveScore();renderLB();
+  const form=document.querySelector('.hform');
+  form.outerHTML=`<div style="display:flex;align-items:center;gap:12px;padding:14px 24px;background:rgba(255,76,0,.1);border:1px solid rgba(255,76,0,.3);border-radius:100px;font-size:14px;font-weight:600;z-index:1;position:relative;animation:fu .5s ease both"><span style="font-size:18px"></span>Welcome, <span style="color:#FF4C00">${esc(n)}</span>! Scroll down to begin.</div>`;
+  setTimeout(()=>document.getElementById('phases').scrollIntoView({behavior:'smooth'}),700);
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// Phase toggle
+function openPhase(pid){
+  const pd=PD[pid-1];
+  const panel=document.getElementById('lp');
+  const cards=document.querySelectorAll('.pc');
+  if(activePhase===pid&&panel.classList.contains('open')){
+    panel.classList.remove('open');cards.forEach(c=>c.classList.remove('active'));activePhase=null;return;
+  }
+  activePhase=pid;activeBossPhase=pid;
+  cards.forEach(c=>c.classList.remove('active'));
+  document.querySelector(`[data-ph="${pid}"]`).classList.add('active');
+  buildPanel(pd);
+  panel.classList.add('open');
+  updateBoss(pid,'brief');
+  setTimeout(()=>document.getElementById('bossfight').scrollIntoView({behavior:'smooth',block:'nearest'}),400);
+}
+// Track understood concepts
+let understood = {};
+function markUnderstood(conceptKey) {
+  understood[conceptKey] = !understood[conceptKey];
+  const btn = document.getElementById('gi_'+conceptKey);
+  if(!btn) return;
+  if(understood[conceptKey]) {
+    btn.classList.add('done');
+    btn.querySelector('.gotit-label').textContent = 'Got it';
+  ,
+       alt:[
+        'TOOLBOX ANALOGY: A skilled tradesperson carries exactly the tools their job requires. A plumber does not carry a chainsaw. The right tool for the job, in the right hands, with appropriate safety training for each tool. AI agents should be designed with the same discipline: the minimum set of tools required to accomplish the specified task, with appropriate access controls and usage logging for each.',
+        'LIBRARY ACCESS ANALOGY: A first-year student has access to the general library. A PhD researcher has access to restricted archives and primary sources. Each level of access is proportionate to the legitimate need. AI agent tool access should follow the same graduated authority model: start with the minimum access required, add capabilities as the reliability record justifies them.'
+       ]} else {
+    btn.classList.remove('done');
+    btn.querySelector('.gotit-label').textContent = 'Mark as understood';
+  }
+  updateProgressBar();
+  if(playerName) saveScore();
+}
+function updateProgressBar() {
+  const total = document.querySelectorAll('.gotit-btn').length;
+  const done = Object.values(understood).filter(Boolean).length;
+  const bar = document.getElementById('pb-fill');
+  const count = document.getElementById('pb-count');
+  if(bar) bar.style.width = total ? (done/total*100)+'%' : '0%';
+  if(count) count.textContent = done+'/'+total+' concepts understood';
+}
+function toggleAlt(conceptKey) {
+  const panel = document.getElementById('alt_'+conceptKey);
+  if(!panel) return;
+  panel.classList.toggle('open');
+  const btn = panel.previousElementSibling && panel.previousElementSibling.querySelector ? null : null;
+}
+function switchAltTab(conceptKey, idx) {
+  document.querySelectorAll('.alt-content[data-key="'+conceptKey+'"]').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.alt-tab[data-key="'+conceptKey+'"]').forEach(t=>t.classList.remove('active'));
+  const sel = document.querySelector('.alt-content[data-key="'+conceptKey+'"][data-idx="'+idx+'"]');
+  const selTab = document.querySelector('.alt-tab[data-key="'+conceptKey+'"][data-idx="'+idx+'"]');
+  if(sel) sel.classList.add('active');
+  if(selTab) selTab.classList.add('active');
+}
+function buildPanel(pd){
+  const ywc=document.getElementById('ywc');
+  const totalConcepts = pd.weeks.reduce((a,w)=>a+w.concepts.length,0);
+  ywc.innerHTML=`
+    <div class="progress-bar-wrap">
+      <span style="font-size:11px;font-family:var(--mn);color:rgba(255,255,255,.4);letter-spacing:2px;white-space:nowrap">PHASE PROGRESS</span>
+      <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:0%"></div></div>
+      <span class="pb-count" id="pb-count">0/${totalConcepts,
+       alt:[
+        'PRODUCT LAUNCH ANALOGY: A consumer product company does not launch a new product without consumer testing, quality control, and a clear performance measurement plan. They test with a representative sample, measure the key metrics, refine based on feedback, and launch with a monitoring plan. AI agent deployment follows the same discipline.',
+        'CLINICAL TRIAL ANALOGY: A new medical treatment goes through phases: safety testing (does it cause harm?), efficacy testing (does it work?), comparative testing (does it outperform existing treatments?), and long-term monitoring (does efficacy hold up over time?). AI agent deployment should follow the same phased validation before production launch.'
+       ]} concepts understood</span>
+    </div>
+    <div class="ywc"><div class="ywc-title">YOU WILL COVER IN THIS PHASE</div><div class="ywc-grid">${pd.cover.map(c=>`<div class="ywc-item"><div class="ywc-dot" style="background:${pd.color}"></div><span>${c}</span></div>`).join('')}</div></div>`;
+  const tabs=document.getElementById('ltabs');
+  const conts=document.getElementById('lconts');
+  tabs.innerHTML='';conts.innerHTML='';
+  pd.weeks.forEach((wk,wi)=>{
+    const tab=document.createElement('button');
+    tab.className='ltab'+(wi===0?' active':'');
+    tab.textContent=wk.title;
+    tab.style.setProperty('--ac',pd.color);
+    tab.onclick=()=>{
+      document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.lcont').forEach(c=>c.classList.remove('active'));
+      document.getElementById('lc'+pd.id+'_'+wi).classList.add('active');
+    };
+    tabs.appendChild(tab);
+    const cont=document.createElement('div');
+    cont.className='lcont'+(wi===0?' active':'');
+    cont.id='lc'+pd.id+'_'+wi;
+    wk.concepts.forEach((con,ci)=>{
+      const key=pd.id+'_'+wi+'_'+ci;
+      const isDone = !!understood[key];
+      const hasAlt = con.alt && con.alt.length > 0;
+      const altTabsHtml = hasAlt ? con.alt.map((a,ai)=>`<button class="alt-tab${ai===0?' active':''}" data-key="${key}" data-idx="${ai}" onclick="switchAltTab('${key}',${ai})">Alternative ${ai+1}</button>`).join('') : '';
+      const altContentsHtml = hasAlt ? con.alt.map((a,ai)=>`<div class="alt-content${ai===0?' active':''}" data-key="${key}" data-idx="${ai}"><div class="alt-label">ALTERNATIVE EXPLANATION ${ai+1}</div><div class="alt-text">${a}</div></div>`).join('') : '';
+      const card=document.createElement('div');
+      card.className='cc';
+      card.innerHTML=`
+        <div class="ch" onclick="toggleCC(this.parentElement)">
+          <div><div class="ct" style="${isDone?'opacity:.5':''}">${con.t}</div><div class="cs2">${con.sub}</div></div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            ${isDone?'<span style="font-size:10px;font-family:var(--mn);color:#34d399;letter-spacing:1px;padding:3px 10px;background:rgba(16,185,129,.1);border-radius:4px;">UNDERSTOOD</span>':''}
+            <span class="cv">v</span>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="cs" style="background:rgba(251,191,36,.03)">
+            <div class="mba-tag">MBA CONCEPT</div>
+            <div class="ctx">${con.mba}</div>
+          </div>
+          <div class="cs">
+            <div class="csl"><span style="color:#FFD700">ELI5 — THE ANALOGY</span></div>
+            <div class="ctx">${con.eli5}</div>
+          </div>
+          <div class="cs">
+            <div class="csl"><span style="color:${pd.color}">TECHNICAL DEPTH</span></div>
+            <div class="ctx mono">${con.tech}</div>
+          </div>
+          <div class="cs" style="background:rgba(16,185,129,.03)">
+            <div class="csl"><span style="color:#34d399">OPS TRANSLATION</span></div>
+            <div class="ctx">${con.ops}</div>
+          </div>
+          ${hasAlt ? `<div class="alt-panel" id="alt_${key}"><div class="alt-tabs">${altTabsHtml}</div>${altContentsHtml}</div>` : ''}
+          <div class="concept-footer">
+            <button class="gotit-btn${isDone?' done':''}" id="gi_${key}" onclick="markUnderstood('${key}')">
+              <div class="gotit-check"></div>
+              <span class="gotit-label">${isDone?'Got it':'Mark as understood'}</span>
+            </button>
+            ${hasAlt ? `<button class="alt-btn" onclick="toggleAlt('${key}')">Still not clicking — explain it differently</button>` : ''}
+          </div>
+        </div>`;
+      cont.appendChild(card);
+    });
+    conts.appendChild(cont);
+  });
+  updateProgressBar();
+}
+function toggleCC(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.cc').forEach(c=>c.classList.remove('open'));
+  if(!was)card.classList.add('open');
+}
+// Boss Fight
+function updateBoss(pid,mode){
+  const bf=PD[pid-1].bf;
+  document.getElementById('bpn').textContent=pid;
+  document.getElementById('btitle').textContent=bf.title;
+  document.getElementById('bxp').textContent=PD[pid-1].xp;
+  document.getElementById('bsc').textContent=bf.scenario;
+  bmode(mode||'brief',null);
+}
+function bmode(mode,btn){
+  document.querySelectorAll('.bmbtn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else{const mm={brief:0,attempt:1,scaffold:2,sim:3};const btns=document.querySelectorAll('.bmbtn');if(btns[mm[mode]])btns[mm[mode]].classList.add('active');}
+  const bf=PD[activeBossPhase-1].bf;
+  const el=document.getElementById('bcont');
+  if(mode==='brief'){
+    el.innerHTML='<div>'+bf.brief.map((item,i)=>`<div class="bi"><div class="bin">${i+1}.</div><div class="bit">${item}</div></div>`).join('')+'</div>';
+  }else if(mode==='attempt'){
+    el.innerHTML=`<textarea class="ata" id="ata" placeholder="Write your answer here — your rewritten prompt, RCA, architecture diagram, or playbook section..."></textarea>
+    <div class="btna"><button class="btn-p" onclick="submitBoss(${activeBossPhase})">Submit & Claim XP </button><button class="btn-s" onclick="bmode('sim',null)">Trigger Stakeholder Challenge →</button></div>
+    <div class="sbanner" id="sb${activeBossPhase}"> Phase ${activeBossPhase} Complete — ${PD[activeBossPhase-1].xp} XP Earned — New Rank Unlocked</div>`;
+  }else if(mode==='scaffold'){
+    el.innerHTML=`<div style="padding:22px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;">`+bf.scaffold.map((h,i)=>`<div style="display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;"><span style="color:#FFD700;font-family:var(--mn);font-size:12px;flex-shrink:0">HINT ${i+1}</span><span style="font-size:13px;line-height:1.7;color:rgba(255,255,255,.65)">${h}</span></div>`).join('')+`</div>`;
+  }else if(mode==='sim'){
+    el.innerHTML=`<div class="simbox"><div class="simlab"> EXEC CHALLENGE — RESPOND DIRECTLY</div><div class="simtxt">"${bf.sim}"</div></div>
+    <textarea class="ata" placeholder="Type your stakeholder response here..." style="min-height:150px;"></textarea>
+    <p style="font-size:11px;color:rgba(255,255,255,.28);font-family:var(--mn);margin-top:10px;">Tip: Copy your response → paste into a live Claude chat → "Play the role of [exec]. Challenge my response: [paste]"</p>`;
+  }
+}
+
+// Leaderboard
+function loadLB(){try{return JSON.parse(localStorage.getItem(LSKEY))||[];}catch{return [];}}
+function saveLB(b){try{localStorage.setItem(LSKEY,JSON.stringify(b));}catch{}}
+function saveScore(){
+  if(!playerName)return;
+  const b=loadLB();
+  const idx=b.findIndex(e=>e.name.toLowerCase()===playerName.toLowerCase());
+  const entry={name:playerName,xp,phases:completedPhases.size,rank:getRank(xp),at:Date.now()};
+  if(idx>=0)b[idx]=entry;else b.push(entry);
+  saveLB(b);
+}
+function renderLB(){
+  const b=loadLB().sort((a,z)=>z.xp-a.xp||a.at-z.at);
+  const list=document.getElementById('lbList'); if(!list) return;
+  const empty=document.getElementById('lbEmpty');
+  if(!b.length){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  const medals=['#1','#2','#3'];
+  const pColors=['#FF6B35','#8B5CF6','#10B981','#F59E0B','#EC4899','#00D4FF'];
+  list.innerHTML=b.map((e,i)=>{
+    const isMe=playerName&&e.name.toLowerCase()===playerName.toLowerCase();
+    const medal=medals[i]?`<span style="font-size:13px;font-weight:800;color:#FF4C00;font-family:var(--mn)">${medals[i]}</span>`:`<span style="font-size:11px;font-weight:700;color:#555;font-family:var(--mn)">#${i+1}</span>`;
+    const bar=Math.min(100,(e.xp/TOTAL)*100);
+    const pc=pColors[Math.min(e.phases,5)];
+    return `<div style="display:flex;align-items:center;gap:18px;padding:18px 22px;background:${isMe?'rgba(255,76,0,.07)':'rgba(255,255,255,.02)'};border:1px solid ${isMe?'rgba(255,76,0,.3)':'rgba(255,255,255,.05)'};border-radius:10px;position:relative;overflow:hidden;">
+      ${isMe?'<div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FF4C00,#FF9A00)"></div>':''}
+      <div style="width:30px;text-align:center;font-size:18px;flex-shrink:0">${medal}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
+          <span style="font-size:14px;font-weight:700;color:${isMe?'#FF4C00':'#fff'}">${esc(e.name)}</span>
+          ${isMe?'<span style="font-size:9px;font-family:var(--mn);background:rgba(255,76,0,.2);color:#FF4C00;padding:2px 7px;border-radius:4px;letter-spacing:1px">YOU</span>':''}
+          <span style="font-size:10px;color:rgba(255,255,255,.3);font-family:var(--mn)">${e.rank}</span>
+        </div>
+        <div style="width:100%;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;">
+          <div style="width:${bar}%;height:100%;background:${pc};border-radius:2px;transition:width .8s ease;"></div>
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div style="font-size:18px;font-weight:800;font-family:var(--mn);color:${isMe?'#FF4C00':'#fff'}">${e.xp.toLocaleString()}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.3);font-family:var(--mn);letter-spacing:1px">XP · ${e.phases}/6 phases</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function clearLB(){
+  if(confirm('Reset the leaderboard? This cannot be undone.')){
+    try{localStorage.removeItem(LSKEY);}catch{}
+    playerName='';xp=0;completedPhases=new Set();updateXP();renderLB();
+    location.reload();
+  }
+}
+
+//  DOUBLE JEOPARDY SYSTEM 
+const DJ_QUESTIONS = [
+  // Phase 1 questions
+  {phase:1,id:'dj1a',
+   q:"You're training an AI to classify churn risk. You label 10,000 tickets correctly and feed them in. The model still performs terribly. Which Ops framework tells you this is YOUR fault, not the AI's?",
+   opts:["DMAIC — you skipped the Measure phase","GIGO — your labels ARE the raw material","Waterfall — you didn't version the data","Six Sigma — the sigma level is too low"],
+   ans:1,
+   win:"Correct. GIGO: Garbage In, Garbage Out. If your labels are inconsistent or wrong, the model learns to be consistently wrong. The AI is only as good as the data you gave it. Your upstream supplier failed quality control.",
+   lose:"The answer is GIGO. The AI is doing exactly what you trained it to do — learn your patterns. If your patterns (labels) were garbage, it learned garbage perfectly. Check your supplier scorecard first."
+  },
+  {phase:1,id:'dj1b',
+   q:"A new hire asks: 'What's the difference between the AI's context window and its long-term memory?' You explain it using one thing everyone in ops knows. What do you reach for?",
+   opts:["P&L vs Balance Sheet — snapshot vs history","Agent's screen vs the CRM database","SLA clock vs the case history log","Shift schedule vs the annual roster"],
+   ans:1,
+   win:"Spot on. The agent's screen = context window (what's visible RIGHT NOW, cleared after the interaction). The CRM = long-term memory / RAG (always available, persistent, searchable). Classic ops analogy that lands every time.",
+   lose:"Best answer: Agent's screen vs. the CRM. Screen = context window: active, limited, wiped after the call. CRM = external memory: persistent, searchable, always there. The screen has limited space — just like a context window."
+  },
+  // Phase 2 questions
+  {phase:2,id:'dj2a',
+   q:"Your AI tool confidently tells a customer their refund will arrive in 3 days. There is no refund. The account was closed. The AI made this up entirely. In Six Sigma terms, what kind of defect is this?",
+   opts:["A Type II error — missing a real signal","A special cause variation from external noise","A hallucination — a Type I error: inventing a signal that isn't there","A measurement system error (MSA failure)"],
+   ans:2,
+   win:"Exactly right. Hallucination = Type I error in the quality framework: the model asserted something false with high confidence. In DPMO terms, this is a critical defect requiring a Human-in-the-Loop gate before any customer-facing output in high-stakes contexts.",
+   lose:"Hallucination = Type I error: the model invented a signal (refund confirmation) that doesn't exist. In Six Sigma, false positives in a detection system are Type I errors. This is why HITL gates exist for high-stakes AI outputs."
+  },
+  {phase:2,id:'dj2b',
+   q:"You're doing a competitive benchmarking report using Perplexity AI. Your VP asks: 'How do I know this data is accurate?' What's the CORRECT answer that shows you understand AI research tools?",
+   opts:["'Perplexity uses GPT-4 so it's always accurate'","'I cross-checked 3 cited sources and validated against our own actuals'","'AI tools don't hallucinate when searching the web'","'The data looked reasonable so I trusted it'"],
+   ans:1,
+   win:"Right answer, right instinct. Perplexity grounds outputs in real sources, but YOU are the last quality gate. Checking 3 cited sources and triangulating against your own data is the professional standard for AI-assisted research.",
+   lose:"The correct answer is cross-checking sources. Perplexity cites its sources precisely so YOU can validate them. The AI is the research assistant; you are the quality auditor. Never skip that step for board-level data."
+  },
+  // Phase 3 questions
+  {phase:3,id:'dj3a',
+   q:"You ask an AI to analyze why shrinkage spiked. Without Chain-of-Thought prompting, it says: 'Shrinkage increased due to staffing issues.' With CoT, it traces 5 levels deep to the root cause. This is the AI equivalent of which quality tool?",
+   opts:["A control chart — detecting variation over time","The 5 Whys — iterative cause-and-effect drilling","A Pareto chart — ranking defects by frequency","An FMEA — failure mode and effects analysis"],
+   ans:1,
+   win:"Perfect. Chain-of-Thought IS the 5 Whys for AI. Each reasoning step = one Why. The model is forced to trace causality rather than jump to a conclusion. The output is structured, auditable, and surfaces the actual root cause instead of the nearest symptom.",
+   lose:"Chain-of-Thought = automated 5 Whys. Each CoT step drills one level deeper into causality — exactly what the 5 Whys does. 'Why did shrinkage increase? Because of staffing gaps. Why staffing gaps? Because of...' That's CoT."
+  },
+  {phase:3,id:'dj3b',
+   q:"A riddle: I hold 6 months of your ops data, I can run Python, I read documents, I watch videos. I speak 100 languages and I never sleep. But give me 1 million tokens of irrelevant data and I get confused. What am I?",
+   opts:["A Snowflake data warehouse with a BI layer","A well-caffeinated analyst with insomnia","Gemini Advanced with a 1M token context window","Claude with a RAG pipeline attached"],
+   ans:2,
+   win:"Correct! Gemini Advanced: multimodal, code-executing, Google Workspace-native, 1M token context window. The 'gets confused with irrelevant data' clue = context window dilution. Signal-to-noise in a 1M token window is a real challenge.",
+   lose:"The answer is Gemini Advanced. The clues: multimodal (reads docs, watches video), runs Python (code interpreter), 1M token context window (holds 6 months of data), and context dilution weakness (confused by irrelevant tokens filling the window)."
+  },
+  // Phase 4 questions
+  {phase:4,id:'dj4a',
+   q:"You deploy an AI agent that handles Tier-1 churn cases. It works perfectly in testing. On day 3 in production, two agents get stuck in a loop: Agent A escalates to Agent B, who routes back to Agent A, forever. Your SLA is breaching. What should you have built in from day 1?",
+   opts:["A larger context window for Agent B","Max iteration limits, state tracking, and confidence thresholds","A better system prompt for Agent A","More training data for the classifier"],
+   ans:1,
+   win:"Exactly. Infinite loop prevention is non-negotiable infrastructure: (1) Max iteration limit — hard stop at N cycles. (2) State tracking — log every action, detect repeated attempts. (3) Confidence threshold — below 70%, auto-escalate to human. These are your circuit breakers.",
+   lose:"The answer: max iteration limits + state tracking + confidence thresholds. These are your circuit breakers for agentic systems. Without them, two agents with overlapping responsibilities will loop forever. Design for failure from day 1."
+  },
+  {phase:4,id:'dj4b',
+   q:"You describe your dream ops tool to Lovable in plain English and a working app appears in 10 minutes. A sceptical colleague says: 'That can't be production-ready.' Which MBA framework best explains WHY this is worth doing anyway?",
+   opts:["Porter's Five Forces — assess competitive threat before building","The Lean Startup MVP — validate before investing","Kotter's Change Model — build urgency first","The BCG Matrix — prioritize high-growth quadrant tools"],
+   ans:1,
+   win:"The Lean Startup MVP. Lovable collapses the Build-Measure-Learn cycle from 6 weeks to 6 hours. You're not building production software — you're building a validated hypothesis. If the prototype proves the concept, THEN you invest in production engineering.",
+   lose:"Lean Startup MVP framework. Lovable is a hypothesis-testing tool: build a working prototype fast, put it in front of real users, learn what to keep. It's not replacing engineering — it's replacing the 6-week wait before you find out if the idea was worth engineering at all."
+  },
+  // Phase 5 questions
+  {phase:5,id:'dj5a',
+   q:"Your CFO asks: 'Our AI classifier cost us $80K to build and saves us $120K/year. What's the payback period and should we scale it?' You answer in 5 seconds. How?",
+   opts:["Payback = 8 months. Yes, scale it — IRR exceeds any benchmark hurdle rate at this margin","Payback = 1.5 years. No — the margin is too thin to scale without more data","Payback = 6 months. Maybe — depends on whether the savings are recurring","Payback = 80 divided by 120 = 0.67 years = 8 months. Yes, scale if savings are genuinely recurring and the cost doesn't increase linearly with volume"],
+   ans:3,
+   win:"That's the full answer. $80K / $120K per year = 0.67 years = 8 months payback. The key qualifier: 'if savings are recurring and costs don't scale linearly.' AI economics = high fixed cost, near-zero marginal cost per additional use. That's why scaling is almost always yes once the pilot proves ROI.",
+   lose:"$80K / $120K = 0.67 years = ~8 months payback. But the full CFO answer includes the qualifier: savings must be recurring, and cost must NOT scale linearly with volume. AI's superpower is that marginal cost per additional use approaches zero — that's why the ROI curve is so compelling at scale."
+  },
+  {phase:5,id:'dj5b',
+   q:"You're rolling out AI to 66 agents. Three weeks in, adoption is at 20%. One manager says 'my team thinks AI is going to replace them.' According to ADKAR, which step have you failed and what do you do next?",
+   opts:["Knowledge — run more training sessions immediately","Desire — the 'What's In It For Me' hasn't landed. Reframe AI as removing the worst parts of the job, not the job","Ability — provide better tools and technical support","Reinforcement — set up a recognition programme for AI usage"],
+   ans:1,
+   win:"Correct. ADKAR: Awareness may exist but Desire is the blocker. People won't adopt what they fear. The fix: show them specifically which tasks AI eliminates (not which jobs). 'You won't have to manually write MoM anymore' lands better than 'AI will make you more productive.'",
+   lose:"The answer is Desire — the D in ADKAR. People know about the tool (Awareness) but don't want to use it (no Desire). The intervention: reframe the narrative. AI removes the tasks agents hate (manual case logging, repetitive lookups) not the judgment calls they're proud of."
+  },
+  // Phase 6 questions
+  {phase:6,id:'dj6a',
+   q:"A colleague says: 'Our AI agent is just a chatbot with extra steps.' You disagree. You explain the ONE architectural difference that makes an agent fundamentally different from a chatbot. What is it?",
+   opts:["Agents are bigger models with more parameters","Agents have a planning loop: they Perceive, Plan, Act, and Reflect autonomously to achieve a goal without being re-prompted at each step","Agents have access to the internet","Agents use RAG, chatbots don't"],
+   ans:1,
+   win:"Exactly right. The planning loop is the distinction. A chatbot responds to prompts. An agent takes a goal, decomposes it into steps, executes those steps using tools, evaluates the outcome, and iterates — all without a human re-prompting each step. That's the architectural leap.",
+   lose:"The planning loop: Perceive, Plan, Act, Reflect. A chatbot waits for your next message. An agent sets its own intermediate goals, calls tools, checks its own work, and keeps going until the final goal is achieved. One is reactive; the other is autonomous."
+  },
+  {phase:6,id:'dj6b',
+   q:"Riddle: I am the outermost ring. I am invisible in the product but without me, the whole system collapses at enterprise scale. I govern compliance, monitor every action, control who can access what, and make sure the AI plays fair. I am expensive to build but impossible to skip. What layer of the 5-layer agentic architecture am I?",
+   opts:["The LLM layer — the model itself","The AI Agent layer — the planning loop","The Agentic Systems layer — multi-agent orchestration","The Agentic Infrastructure layer — observability, security, compliance, scaling"],
+   ans:3,
+   win:"Correct. Agentic Infrastructure: the invisible foundation that makes everything else safe to deploy. Observability (logs every action), Security (access controls, PII detection), Compliance (GDPR, HIPAA, AI Act), Scaling (BCP for peak volume). Skip it and your enterprise pilot stays a pilot forever.",
+   lose:"Agentic Infrastructure — Layer 5. The clues: invisible in the product, governs compliance, monitors everything, controls access, ensures fairness, expensive to build. This is your enterprise governance layer. Without it, you cannot safely deploy AI at enterprise scale."
+  }
+];
+
+let djAnswered = {};
+
+function buildDJ(phaseId) {
+  const qs = DJ_QUESTIONS.filter(q => q.phase === phaseId);
+  if(!qs.length) return '';
+  // pick one randomly from this phase's questions
+  const q = qs[Math.floor(Math.random() * qs.length)];
+  if(djAnswered[q.id]) return buildDJAnswered(q);
+  return `<div class="dj-wrap" id="djw_${q.id}">
+    <div class="dj-header">DOUBLE JEOPARDY</div>
+    <div class="dj-stake">Get it right: +${200} bonus XP &nbsp;|&nbsp; Get it wrong: -${200} XP &nbsp;|&nbsp; High stakes. No guessing.</div>
+    <div class="dj-q">${q.q}</div>
+    <div class="dj-opts">
+      ${q.opts.map((o,i)=>`<button class="dj-opt" onclick="answerDJ('${q.id}',${i})" id="djopt_${q.id}_${i}">${o}</button>`).join('')}
+    </div>
+    <div class="dj-result" id="djr_${q.id}"></div>
+    <button class="dj-skip" onclick="skipDJ('${q.id}')">Skip this question</button>
+  </div>`;
+}
+
+function buildDJAnswered(q) {
+  const state = djAnswered[q.id];
+  return `<div class="dj-wrap" style="opacity:.6">
+    <div class="dj-header">DOUBLE JEOPARDY — COMPLETED</div>
+    <div class="dj-q" style="font-size:13px;color:rgba(255,255,255,.5)">${q.q}</div>
+    <div class="dj-result show ${state.correct?'win':'lose'}" style="margin-top:8px">${state.correct ? '+200 XP — ' + q.win : '-200 XP — ' + q.lose}</div>
+  </div>`;
+}
+
+function answerDJ(qid, idx) {
+  const q = DJ_QUESTIONS.find(x=>x.id===qid);
+  if(!q || djAnswered[qid]) return;
+  const correct = idx === q.ans;
+  const delta = correct ? 200 : -200;
+  xp = Math.max(0, xp + delta);
+  djAnswered[qid] = {correct, idx};
+  updateXP();
+  if(correct) flashXP(200);
+  // disable all options
+  q.opts.forEach((_,i)=>{
+    const btn = document.getElementById('djopt_'+qid+'_'+i);
+    if(!btn) return;
+    btn.disabled = true;
+    if(i===idx) btn.classList.add(correct?'correct':'wrong');
+    if(i===q.ans && !correct) btn.classList.add('reveal');
+  });
+  const res = document.getElementById('djr_'+qid);
+  res.className = 'dj-result show '+(correct?'win':'lose');
+  res.innerHTML = correct
+    ? '<strong>Correct! +200 XP</strong><br>' + q.win
+    : '<strong>Wrong. -200 XP</strong><br>' + q.lose;
+  const skip = document.querySelector(`#djw_${qid} .dj-skip`);
+  if(skip) skip.style.display='none';
+  if(playerName) saveScore();
+  renderLB();
+}
+
+function skipDJ(qid) {
+  djAnswered[qid] = {correct:null, idx:null};
+  const wrap = document.getElementById('djw_'+qid);
+  if(wrap) wrap.style.opacity='0.4';
+  const q = DJ_QUESTIONS.find(x=>x.id===qid);
+  const res = document.getElementById('djr_'+qid);
+  if(res && q) {
+    res.className='dj-result show skip';
+    res.innerHTML='Skipped. The correct answer was: <strong>'+q.opts[q.ans]+'</strong>';
+  }
+  const skip = document.querySelector(`#djw_${qid} .dj-skip`);
+  if(skip) skip.style.display='none';
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById('djopt_'+qid+'_'+i);
+    if(btn) btn.disabled=true;
+    if(i===q.ans && btn) btn.classList.add('reveal');
+  });
+}
+
+async function submitBoss(pid){
+  const txt=(document.getElementById('ata')||{value:''}).value||'';
+  if(txt.trim().length<30){alert('Write a genuine answer first. Random text will fail evaluation.');return;}
+  const submitBtn=document.querySelector('.btna .btn-p');
+  if(submitBtn){submitBtn.textContent='Evaluating...';submitBtn.disabled=true;}
+  const bf=PD[pid-1].bf;
+  const dl=bf.brief.map(function(b,i){return(i+1)+'. '+b;}).join('\n');
+  const ep='You are a strict academic evaluator for an AI, Operations and MBA masterclass.\n\nTask given:\nTITLE: '+bf.title+'\nSCENARIO: '+bf.scenario+'\nDELIVERABLES:\n'+dl+'\n\nStudent response:\n'+txt+'\n\nEVALUATION RULES:\n- Gibberish, random characters, or under 30 meaningful words = FAIL, score 0-10\n- Must address at least 3 deliverables with substance to PASS\n- Keyword stuffing without reasoning = FAIL\n- Look for: structured thinking, correct AI/Ops concepts, logical frameworks\n\nRespond ONLY with valid JSON (no markdown):\n{"pass":true,"score":85,"verdict":"one sentence max 20 words","strengths":["s1"],"gaps":["g1"],"top_note":"one actionable tip max 30 words"}';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:ep}]})});
+    const data=await res.json();
+    const raw=(data.content&&data.content[0]&&data.content[0].text)||'{}';
+    var r;
+    try{r=JSON.parse(raw.trim());}catch(e){var m=raw.match(/\{[\s\S]*\}/);try{r=m?JSON.parse(m[0]):{pass:false,score:0,verdict:'Could not parse. Please retry.',strengths:[],gaps:['Format issue'],top_note:'Try resubmitting.'};}catch(e2){r={pass:false,score:0,verdict:'Evaluation error.',strengths:[],gaps:[],top_note:'Try resubmitting.'};} }
+    var sb=document.getElementById('sb'+pid);
+    if(sb){
+      sb.style.display='block';
+      if(r.pass){
+        sb.style.cssText='display:block;padding:20px 24px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:10px;margin-top:14px;';
+        sb.innerHTML='<div style="font-size:11px;font-weight:700;color:#34d399;font-family:var(--mn);letter-spacing:2px;margin-bottom:8px">PASS &#8212; '+r.score+'/100</div>'
+          +'<div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:14px">'+r.verdict+'</div>'
+          +(r.strengths&&r.strengths.length?'<div style="font-size:10px;color:#34d399;font-family:var(--mn);letter-spacing:1px;margin-bottom:6px">WHAT LANDED WELL</div><ul style="margin:0 0 14px;padding-left:18px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.8">'+r.strengths.map(function(s){return'<li>'+s+'</li>';}).join('')+'</ul>':'')
+          +(r.gaps&&r.gaps.length?'<div style="font-size:10px;color:#F59E0B;font-family:var(--mn);letter-spacing:1px;margin-bottom:6px">GAPS TO ADDRESS</div><ul style="margin:0 0 14px;padding-left:18px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.8">'+r.gaps.map(function(g){return'<li>'+g+'</li>';}).join('')+'</ul>':'')
+          +'<div style="padding:10px 14px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:6px;font-size:13px;color:#FFD700;">'+r.top_note+'</div>';
+        if(!completedPhases.has(pid)){completedPhases.add(pid);xp+=PD[pid-1].xp;updateXP();flashXP(PD[pid-1].xp);unlockTools(pid);document.getElementById('lk'+pid).textContent='DONE';saveScore();}
+      } else {
+        sb.style.cssText='display:block;padding:20px 24px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);border-radius:10px;margin-top:14px;';
+        sb.innerHTML='<div style="font-size:11px;font-weight:700;color:#f87171;font-family:var(--mn);letter-spacing:2px;margin-bottom:8px">NOT YET &#8212; '+r.score+'/100</div>'
+          +'<div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:14px">'+r.verdict+'</div>'
+          +(r.gaps&&r.gaps.length?'<div style="font-size:10px;color:#f87171;font-family:var(--mn);letter-spacing:1px;margin-bottom:6px">WHAT NEEDS WORK</div><ul style="margin:0 0 14px;padding-left:18px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.8">'+r.gaps.map(function(g){return'<li>'+g+'</li>';}).join('')+'</ul>':'')
+          +'<div style="padding:10px 14px;background:rgba(255,76,0,.08);border:1px solid rgba(255,76,0,.2);border-radius:6px;font-size:13px;color:#ffaa88;">'+r.top_note+'</div>'
+          +'<div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.4);">No XP awarded. Revise and resubmit.</div>';
+      }
+    }
+  } catch(err){
+    console.error('Eval error:',err);
+    var sb2=document.getElementById('sb'+pid);
+    if(sb2){sb2.style.cssText='display:block;padding:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;margin-top:14px;color:rgba(255,255,255,.5);font-size:13px;';sb2.innerHTML='Evaluation unavailable &#8212; <button onclick="submitBoss('+pid+')" style="color:var(--o);background:none;border:none;cursor:pointer;font-family:var(--fm)">try again</button>';}
+  } finally {
+    if(submitBtn){submitBtn.textContent='Submit & Claim XP';submitBtn.disabled=false;}
+  }
+}
+
+// Init
+updateXP();
+// Boss fight - run after DOM is ready
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){updateBoss(1,'brief');setBossMode('brief',null);});
+} else {
+  updateBoss(1,'brief');
+  setBossMode('brief',null);
+}
+</script>
+</body>
+</html>
